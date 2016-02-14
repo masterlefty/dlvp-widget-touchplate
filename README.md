@@ -14,10 +14,10 @@ not conflict with other ChiliPeppr widgets.
 | ID                    | com-chilipeppr-widget-touchplate |
 | Name                  | Widget / touchplate |
 | Description           | This widget helps you use a touch plate to create your Z zero offset. |
-| chilipeppr.load() URL | http://raw.githubusercontent.com/http://master/auto-generated-widget.html |
-| Edit URL              | http://ide.c9.io/masterlefty/widget-touchplate |
-| Github URL            | http://github.com/http:/ |
-| Test URL              | https://preview.c9users.io/masterlefty/widget-touchplate/widget.html |
+| chilipeppr.load() URL | http://raw.githubusercontent.com/masterlefty/dlvp-widget-touchplate/master/auto-generated-widget.html |
+| Edit URL              | http://ide.c9.io/masterlefty/dlvp-widget-touchplate |
+| Github URL            | http://github.com/masterlefty/dlvp-widget-touchplate |
+| Test URL              | https://preview.c9users.io/masterlefty/dlvp-widget-touchplate/widget.html |
 
 ## Example Code for chilipeppr.load() Statement
 
@@ -33,7 +33,7 @@ $("body").append('<' + 'div id="myDivWidgetTouchplate"><' + '/div>');
 
 chilipeppr.load(
   "#myDivWidgetTouchplate",
-  "http://raw.githubusercontent.com/http://master/auto-generated-widget.html",
+  "http://raw.githubusercontent.com/masterlefty/dlvp-widget-touchplate/master/auto-generated-widget.html",
   function() {
     // Callback after widget loaded into #myDivWidgetTouchplate
     // Now use require.js to get reference to instantiated widget
@@ -132,7 +132,7 @@ The table below shows, in order, the methods and properties inside the widget/el
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>id</td><td>string</td><td>"com-chilipeppr-widget-touchplate"<br><br>The ID of the widget. You must define this and make it unique.</td></tr><tr valign="top"><td>name</td><td>string</td><td>"Widget / touchplate"</td></tr><tr valign="top"><td>desc</td><td>string</td><td>"This widget helps you use a touch plate to create your Z zero offset."</td></tr><tr valign="top"><td>url</td><td>string</td><td>"http://raw.githubusercontent.com/http://master/auto-generated-widget.html"</td></tr><tr valign="top"><td>fiddleurl</td><td>string</td><td>"http://ide.c9.io/masterlefty/widget-touchplate"</td></tr><tr valign="top"><td>githuburl</td><td>string</td><td>"https://github.com/masterlefty/widget-touchplate"</td></tr><tr valign="top"><td>testurl</td><td>string</td><td>"http://widget-touchplate-masterlefty.c9users.io/widget.html"</td></tr><tr valign="top"><td>publish</td><td>object</td><td>Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so that
+      <tr valign="top"><td>id</td><td>string</td><td>"com-chilipeppr-widget-touchplate"<br><br>The ID of the widget. You must define this and make it unique.</td></tr><tr valign="top"><td>name</td><td>string</td><td>"Widget / touchplate"</td></tr><tr valign="top"><td>desc</td><td>string</td><td>"This widget helps you use a touch plate to create your Z zero offset."</td></tr><tr valign="top"><td>url</td><td>string</td><td>"http://raw.githubusercontent.com/masterlefty/dlvp-widget-touchplate/master/auto-generated-widget.html"</td></tr><tr valign="top"><td>fiddleurl</td><td>string</td><td>"http://ide.c9.io/masterlefty/dlvp-widget-touchplate"</td></tr><tr valign="top"><td>githuburl</td><td>string</td><td>"https://github.com/masterlefty/widget-touchplate"</td></tr><tr valign="top"><td>testurl</td><td>string</td><td>"http://dlvp-widget-touchplate-masterlefty.c9users.io/widget.html"</td></tr><tr valign="top"><td>publish</td><td>object</td><td>Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>subscribe</td><td>object</td><td>Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>foreignPublish</td><td>object</td><td>Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgets
 or elements, that this widget/element publishes to.</td></tr><tr valign="top"><td>foreignSubscribe</td><td>object</td><td>Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgets
