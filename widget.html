@@ -33,7 +33,7 @@
 
 <body>
     <div id="com-chilipeppr-dlvp-widget-touchplate" class="panel panel-default">
-        <div class="panel-heading" style="background-color: #f5f5f5">
+        <div class="panel-heading">
 
             <div class="btn-toolbar pull-right" role="toolbar">
                 <div class="btn-group">
@@ -53,9 +53,9 @@
         <div class="panel-body">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab1" role="tab" data-toggle="tab">MCS G53</a>
-                </li>
-                <li class="active"><a href="#com-chilipeppr-dlvp-widget-touchplate-tab2" role="tab" data-toggle="tab">G5x Float</a></li>
+                <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab1" role="tab" data-toggle="tab">MCS G53</a></li>
+                <li class="active">
+                    <a href="#com-chilipeppr-dlvp-widget-touchplate-tab2" role="tab" data-toggle="tab">G5x Float</a></li>
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab3" role="tab" data-toggle="tab">G5x Fixed</a></li>
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab4" role="tab" data-toggle="tab">G30</a></li>
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab5" role="tab" data-toggle="tab">Notes</a></li>
@@ -69,12 +69,19 @@
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <dd>- Runs from the current X-Y position</dd>
-                                    <dd>- Position touch probe</dd>
-                                    <dd>- Enter values for feedrate and height</dd>
-                                    <dd>- Click "Run" button</dd>
-                                    <br>
-                                    <dd style="font-size: 12px; padding-left: 10px; padding-right: 10px"><i>Exercise caution after a subsequence tool changes without re-running this Widget (ex. "Go To Machine Home", "Go To G5x Zero"), there is a chance of crashing the tool.</i></dd>
+                                    <p>Runs from the current location. 
+                                    <br>Sets Z-zero for MCS (G53)</p>
+                                    <ul style="padding-left: 20px">
+                                        <li>Click "Run" to set G53 Z-zero</li>
+                                        <br>
+                                        <li>Position touch probe</li>
+                                        <li>Enter values for feedrate and height</li>
+                                        <br>
+                                        <li style= "margin-left: 10px; padding-right: 10px">
+                                            <i>Exercise caution after a subsequence tool changes without 
+                                               re-running this Widget, there is a chance of crashing the tool.</i>
+                                        </li>
+                                    </ul>
                                 </td>
                                 <td class = "td-1R">
                                     <p><button type="button" id="run1" class="btn xbtn-xs btn-primary btn-touchplaterun1" style="width:100%;">Run</button></p>
@@ -104,15 +111,17 @@
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <dd>- Runs from the current X-Y position</dd>
-                                    <dd>- Sets Z-zero for the current WCS</dd>
-                                    <dd>- Position touch probe</dd>
-                                    <dd>- Enter values for feedrate and height</dd>
-                                    <br>
-                                    <dd>- Click "G5x Run" button to set G5x Z-zero</dd>
-                                    <dd>- Click "G92 Run" button to set temporary offset</dd>
+                                    <p>Runs from the current location. 
+                                    <br>Sets Z-zero for WCS</p>
+                                    <ul style="padding-left: 20px">
+                                        <li>Click "G5x Run" to set G5x Z-zero</li>
+                                        <li>Click "G92 Run" to set temporary offset</li>
+                                        <br>
+                                        <li>Position touch probe</li>
+                                        <li>Enter values for feedrate and height</li>
+                                    </ul>
                                 </td>
-                                <td style="padding: 10px">
+                                <td class = "td-1R">
                                     <p>
                                         <button type="button" id="run2" class="btn xbtn-xs btn-primary btn-touchplaterun2" style="width:48%;">G5x Run</button>
                                         <button type="button" id="run3" class="btn xbtn-xs btn-info btn-touchplaterun3" style="width:48%;">G92 Run</button>
@@ -143,27 +152,27 @@
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <dd>- Runs from the pre-defined G30 XYZ position</dd>
-                                    <dd>- Sets Z-zero for the current WCS</dd>
-                                    <dd>- Enter values for feedrate and height</dd>
-                                    <dd>- Enter Z-clearance value to raise head</dd>
-                                    <dd>- If the G30 position has not been defined, go to the G30 tab</dd>
-                                    <br>
-                                    <dd>- Click "G5x Run" button to set G5x Z-zero</dd>
-                                    <dd>- Click "G92 Run" button to set temporary offset</dd>
+                                    <p>Runs from the fixed location via G30. 
+                                    <br>Sets Z-zero for WCS</p>
+                                    <ul style="padding-left: 20px">
+                                        <li>Click "G5x Run" to set G5x Z-zero</li>
+                                        <li>Click "G92 Run" to set temporary offset</li>
+                                        <br>
+                                        <li>Enter values for feedrate and height</li>
+                                        <li>Enter Z-clearance value to raise head</li>
+                                        <li><i>Use G30 tab to define fixed location</i></li>
+                                    </ul>
                                 </td>
-                                <td style="padding: 10px">
+                                <td class = "td-1R">
                                     <p>
                                         <button type="button" id="run4" class="btn xbtn-xs btn-primary btn-touchplaterun4" style="width:48%;">G5x Run</button>
                                         <button type="button" id="run5" class="btn xbtn-xs btn-info btn-touchplaterun5" style="width:48%;">G92 Run</button>
                                     </p>
-                                    <p></p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control frprobe" type="number" min="0" placeholder="0.00" value="25" />
                                         <div class="input-group-addon">mm/min</div>
                                     </div>
-                                    <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
@@ -189,15 +198,16 @@
                     <table class="table table-condensed table-bordered">
                         <tbody>
                             <tr>
-                                <td class ="td-1L" style = "text-align: left">
-                                    <dd>Defines the G30 position based on the mill's current position</dd>
-                                    <br>
-                                    <dd>- Move machine to the X & Y location above fixed touch plate.</dd>
-                                    <dd>- Adjust Z-height to ensure tool selection will clear the touchplate.</dd>
-                                    <dd>- Click button to set the G30 location</dd>
+                                <td class = "td-1L">
+                                    <p>Defines the G30 position based on the mill's current position regardless of WCS.</p>
+                                    <ul style="padding-left:20px">
+                                        <li>Move machine to the X & Y location above fixed touch plate.</li>
+                                        <li>Adjust Z-height to ensure tool selection will clear the touchplate.</li>
+                                        <li>Click button to set the G30 location</li>
+                                    </ul>
                                 </td>
-                                <td style="padding: 10px; text-align:center">
-                                    <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-touchplaterun6" style="width:80%;">G30 Current Position</button></p>
+                                <td class = "td-1R">
+                                    <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-touchplaterun6" style="width:100%;">Define G30</button></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -205,9 +215,8 @@
                 </div>
 
                 <!-- Tab 5 -->
-                <div class="tab-pane settings-notes" id="com-chilipeppr-dlvp-widget-touchplate-tab5" data-role="none">
-                    <p><a href="#mcs">Jump to MCS (G53) </a> | <a href="#wcsfl"> Jump to WCS Floating</a> | <a href="#wcsfx">Jump to WCS Fixed</a>
-                    </p>
+                <div class="tab-pane settings-notes" id="com-chilipeppr-dlvp-widget-touchplate-tab5">
+                    <p><a href="#mcs">Jump to MCS (G53) </a> | <a href="#wcsfl"> Jump to WCS Floating</a> | <a href="#wcsfx">Jump to WCS Fixed</a></p>
                     <dl>
                         <dt><b>General Notes</b></dt>
                         <li>Probe cycle runs in the base Machine units of mm.
