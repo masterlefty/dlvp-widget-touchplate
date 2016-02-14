@@ -1,10 +1,38 @@
 /* CSS for ChiliPeppr Widget */
 
-#com-chilipeppr-widget-touchplate {
+#com-chilipeppr-dlvp-widget-touchplate {
    
 }
 
-#com-chilipeppr-widget-touchplate .nav-tabs>li>a {
-    padding: 2px 6px;
+#com-chilipeppr-dlvp-widget-touchplate .nav-tabs {
+    padding: 1px 4px;
 }
 
+#com-chilipeppr-dlvp-widget-touchplate .panel-body{
+   position: relative;
+   padding: 0px;
+   background: white;
+}
+
+#com-chilipeppr-dlvp-widget-touchplate .settings-notes{
+   height: 250px;
+   overflow-y: scroll;
+   border: 1px solid gray;
+   padding-left: 10px;
+   padding-right: 10px;
+}
+
+#com-chilipeppr-dlvp-widget-touchplate .td-1L{
+   width: 50%;
+   padding: 5px;
+   padding-top: 10px;
+   font-size: 13px;
+}
+
+#com-chilipeppr-dlvp-widget-touchplate .td-1R{
+   padding: 10px;
+}
+
+#com-chilipeppr-dlvp-widget-touchplate .input-group-addon{
+   font-size: 10px;
+}

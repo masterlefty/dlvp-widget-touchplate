@@ -1,4 +1,4 @@
-/* global requirejs cprequire cpdefine chilipeppr THREE */
+/* global requirejs cprequire cpdefine chilipeppr transferCode */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -34,7 +34,7 @@ requirejs.config({
     }
 });
 
-cprequire_test(["inline:com-chilipeppr-widget-touchplate"], function(myWidget) {
+cprequire_test(["inline:com-chilipeppr-dlvp-widget-touchplate"], function(myWidget) {
 
     // Test this element. This code is auto-removed by the chilipeppr.load()
     // when using this widget in production. So use the cpquire_test to do things
@@ -54,9 +54,7 @@ cprequire_test(["inline:com-chilipeppr-widget-touchplate"], function(myWidget) {
 
     $('body').prepend('<div id="testDivForFlashMessageWidget"></div>');
 
-    chilipeppr.load(
-        "#testDivForFlashMessageWidget",
-        "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
+    chilipeppr.load("#testDivForFlashMessageWidget", "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
         function() {
             console.log("mycallback got called after loading flash msg module");
             cprequire(["inline:com-chilipeppr-elem-flashmsg"], function(fm) {
@@ -65,6 +63,56 @@ cprequire_test(["inline:com-chilipeppr-widget-touchplate"], function(myWidget) {
             });
         }
     );
+    
+    chilipeppr.load("#test-serial-port", "http://fiddle.jshell.net/chilipeppr/vetj5fvx/show/light/",
+        function() {
+            cprequire(["inline:com-chilipeppr-widget-serialport"],
+    
+                function(sp) {
+                    sp.setSingleSelectMode();
+                    sp.init(null, "tinyg");
+                    //sp.consoleToggle();
+                });
+        });
+    
+    // tinyg widget test load
+    chilipeppr.load("#test-tinyg", "http://fiddle.jshell.net/chilipeppr/XxEBZ/show/light/",
+        function() {
+            cprequire(["inline:com-chilipeppr-widget-tinyg"],
+    
+                function(tinyg) {
+                    tinyg.init();
+                });
+        });
+    
+    // axes widget test load
+    chilipeppr.load("#test-xyz","http://fiddle.jshell.net/chilipeppr/gh45j/show/light/",
+        function() {
+            cprequire(["inline:com-chilipeppr-widget-xyz"],
+    
+                function(xyz) {
+                    xyz.init();
+                });
+        });
+    
+    // Serial Port Console Log Window
+    // http://jsfiddle.net/chilipeppr/JB2X7/
+    // NEW VERSION http://jsfiddle.net/chilipeppr/rczajbx0/
+    // The new version supports onQueue, onWrite, onComplete
+
+    chilipeppr.load("#test-console", "http://fiddle.jshell.net/chilipeppr/rczajbx0/show/light/",
+        function() {
+            cprequire(
+                ["inline:com-chilipeppr-widget-spconsole"],
+    
+                function(spc) {
+                    // pass in regular expression filter as 2nd parameter
+                    // to enable filter button and clean up how much
+                    // data is shown
+                    spc.init(true, /^{/);
+    
+                });
+        });
 
     // init my widget
     myWidget.init();
@@ -74,17 +122,17 @@ cprequire_test(["inline:com-chilipeppr-widget-touchplate"], function(myWidget) {
 } /*end_test*/ );
 
 // This is the main definition of your widget. Give it a unique name.
-cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* other dependencies here */ ], function() {
+cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /* other dependencies here */ ], function() {
     return {
         /**
          * The ID of the widget. You must define this and make it unique.
          */
-        id: "com-chilipeppr-widget-touchplate", // Make the id the same as the cpdefine id
-        name: "Widget / touchplate", // The descriptive name of your widget.
-        desc: "This widget helps you use a touch plate to create your Z zero offset.", // A description of what your widget does
+        id: "com-chilipeppr-dlvp-widget-touchplate", // Make the id the same as the cpdefine id
+        name: "Dlvp Widget / Touchplate", // The descriptive name of your widget.
+        desc: "This development widget helps you use a touch plate to create your Z zero offset..", // A description of what your widget does
         url: "(auto fill by runme.js)",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
         fiddleurl: "(auto fill by runme.js)", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
-        githuburl: "https://github.com/masterlefty/widget-touchplate", // The backing github repo
+        githuburl: "(auto fill by runme.js)", // The backing github repo
         testurl: "(auto fill by runme.js)",   // The standalone working widget so can view it working by itself
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
@@ -97,7 +145,7 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
          */
         publish: {
             // Define a key:value pair here as strings to document what signals you publish.
-            '/onExampleGenerate': 'Example: Publish this signal when we go to generate gcode.'
+            //'/onExampleGenerate': 'Example: Publish this signal when we go to generate gcode.'
         },
         /**
          * Define the subscribe signals that this widget/element owns or defines so that
@@ -122,6 +170,9 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
          * or elements, that this widget/element subscribes to.
          */
         foreignSubscribe: {
+            '/com-chilipeppr-interface-cnccontroller/axes': 'We want X,Y,Z,A,MX,MY,MZ,MA axis updates.',
+            '/com-chilipeppr-interface-cnccontroller/coords': 'Track which is active: G54, G55, etc.',
+            '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
@@ -136,9 +187,310 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
             this.setupUiFromLocalStorage();
             this.btnSetup();
             this.forkSetup();
+            this.isInitted = true;
+            
+            // load audio
+            this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
+            
+            /**
+             * Setup Run Buttons
+             * Each tab has buttons to run the various touchplate configurations
+             * as defined on each tab
+             */
+            // Tab 1 - MCS G53 machine coordinate system  - moveable touchplate
+            $('#' + this.id + ' .btn-touchplaterun1').click(this.onRun.bind(this));
+            
+            // Tab 2 - WCS G5x work coordinate system - moveable touchplate
+            $('#' + this.id + ' .btn-touchplaterun2').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-touchplaterun3').click(this.onRun.bind(this));
+            
+            // Tab 3 - WCS G5x work coordinate system - fixed touchplate
+            $('#' + this.id + ' .btn-touchplaterun4').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-touchplaterun5').click(this.onRun.bind(this));
+            
+            // Tab 4 - G30 Goto Position - defines location of fixed touchplate
+            $('#' + this.id + ' .btn-touchplaterun6').click(this.onG30.bind(this));
 
             console.log("I am done being initted.");
         },
+        
+        /**
+         * Call this method on button click to begin running the touch plate
+         * code and set the Z-zero value.
+         */
+        gcodeCtr: 0,
+        isRunning: false,
+        transferCode: null,
+        runCode: null,
+        
+        onRun: function(evt) {
+            // when user clicks the run button
+            console.log("user clicked run button. evt:", evt, event.target.id);
+            
+            // define variable to determine which subroutine to run based on
+            // user selection through the tabs
+            var runCode = event.target.id;
+            // logs which button was clicked
+            console.log("this is the runCode:", runCode);
+            
+            // transfer runCode to read only global variable
+            transferCode = runCode;
+            
+            // Stop controller upon completion of probing cycle
+            console.log("The transferCode is:", transferCode);
+            
+            if (this.isRunning) {
+
+                // Stop controller
+                var id = "tp" + this.gcodeCtr++;
+                var gcode = "!\n";
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+
+                
+                // Swap clicked button to run
+                if (runCode == "run1") {
+                    // Run WCS (G53) button
+                    $('#' + this.id + ' .btn-touchplaterun1').removeClass("btn-danger").text("Run WCS");
+                    this.isRunning = false;
+                    
+                } else if (runCode == "run2") {
+                    // Run G5x (MCS) button for floating touchplate
+                    $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text("G5x Run");
+                    this.isRunning = false;
+                    
+                }else if (runCode == "run3") {
+                    // Run G92 (MCS) button for floating touchplate
+                    $('#' + this.id + ' .btn-touchplaterun3').removeClass("btn-danger").text("G92 Run");
+                    this.isRunning = false;
+                    
+                } else if (runCode == "run4") {
+                     // Run G5x (MCS) button for fixed touchplate
+                    $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run4");
+                    this.isRunning = false;
+
+                } else {
+                     // Run G92 (MCS) button for fixed touchplate
+                    $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run5");
+                    this.isRunning = false; 
+                }
+
+            } else {
+                
+                // Start probing process
+                
+                this.isRunning = true;
+                // Start controller and swap button to stop
+                $('#' + this.id + ' .btn-touchplate' + runCode).addClass("btn-danger").text("Stop");
+                
+                // Get user feedrate from input group
+                var fr = $('#' + this.id + ' .frprobe').val();
+                var zclr = $('#' + this.id + ' .zclear').val();
+                
+                // Start watch for circuit closing, subscribe to recvline
+                this.watchForProbeStart();
+               
+                // G30 Probe cycle runs an additional routine to move the head
+                // to the fixed probe position befor running the probe cycle
+                if (runCode == "run4" || runCode == "run5") {
+                    // Raise head to clearance height and move to G30 position
+                    id = "tp" + this.gcodeCtr++;
+                    gcode = "G21 G91 G30 Z" + zclr + "\n";
+                    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                }
+                
+                // Run the G38.2 probe cycle for all buttons
+                
+                // Set to G21 mm and G91 relative coordinates
+                id = "tp" + this.gcodeCtr++;
+                var gcode = "G21 G91 (Use mm and rel coords)\n";
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
+                // Run G38 Probe Cycle
+                id = "tp" + this.gcodeCtr++;
+                gcode = "G38.2 Z-20 F" + fr + "\n";
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                id = "tp" + this.gcodeCtr++;
+            }
+        },
+        
+        /**
+         * Call this method when the G30 define button is clicked on tab 4.
+         * The G30 Tab 4 will create a defined position, through a G30.1 command 
+         * that locates a fixed touchplate. Send G30.1 - This will "remember" the 
+         * absolute position. This position remains constant regardless of what
+         * coordinate system is in effect.
+         */
+        gcodeCtr: 0,
+        isRunning: false,
+        runCode: null,
+        
+        onG30: function(evt) {
+            // when user clicks the G30 button
+            console.log("user clicked run button. evt:", evt, event.target.id);
+            
+            // define variable to determine which subroutine to run based on
+            // user selection through the tabs
+            var runCode = event.target.id;
+            // logs which button was clicked
+            console.log("this is the runCode:", runCode);
+            
+            if (this.isRunning) {
+                
+                // Stop controller
+                var id = "tp" + this.gcodeCtr++;
+                var gcode = "!\n";
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
+                // Swap selected button to run
+                    $('#' + this.id + ' .btn-touchplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
+                    this.isRunning = false;
+            } else {
+                
+                // Start process
+                this.isRunning = true;
+                
+                // Swap selected button to stop
+                $('#' + this.id + ' .btn-touchplaterun6').addClass("btn-danger").text("Stop");
+                
+                // Send command to set the G30 location
+                id = "tp" + this.gcodeCtr++;
+                gcode = "G30.1 \n";
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
+                // Swap selected button to run
+                    $('#' + this.id + ' .btn-touchplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
+                    this.isRunning = false;
+            }
+        },
+
+        /**
+         * Subscribes to the recvline to analyze data being received
+         */
+        watchForProbeStart: function() {
+            chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLineForProbe);
+        },
+        
+        /**
+         * Watch for signal that touchplate circuit is closed
+         */
+        watchForProbeEnd: function() {
+            chilipeppr.unsubscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLineForProbe);
+        },
+        
+        /**
+         * Opens the recvline to the controller to receive data
+         */
+        onRecvLineForProbe: function(data) {
+            console.log("onRecvLineForProbe. data:", data);
+            
+            if (!('dataline' in data)) {
+                console.log("did not get dataline in data. returning.");
+				return;
+            }
+            
+            // inspect data to ensure it is in the correct format
+            // ex. {"prb":{"e":1,"z":-7.844}}
+            var json = $.parseJSON(data.dataline);
+            
+            // detect and remap if needed
+            if ('r' in json && 'prb' in json.r) json = json.r;
+            
+            // confirm the data is for probe ending
+		    if ('prb' in json && 'e' in json.prb && 'z' in json.prb) {
+		        // yes, it's data for the probe ending
+		    
+		        // now do all the final steps now that we got our data
+		        this.onAfterProbeDone(json.prb);
+		    }
+        },
+        
+        onAfterProbeDone: function(probeData) {
+            // probeData should be of the format
+            // {"e":1,"z":-7.844}
+            console.log("onAfterProbeDone. probeData:", probeData);
+            
+            // unsub so we stop getting events
+            this.watchForProbeEnd();
+            
+            // play good beep
+            this.audio.play();
+            
+            // Stop controller upon completion of probing cycle
+            console.log("The transferCode is:", transferCode);
+            
+            // Cycle stop and swap buttons to run
+            this.isRunning = false;
+            var plateHeight = $('#' + this.id + ' .htplate').val();
+            if (isNaN(plateHeight)) plateHeight = 0;
+                console.log("plateHeight:", plateHeight);
+
+            if (transferCode == "run1") {
+                // Run WCS (G53) button - Tab 1
+                $('#' + this.id + ' .btn-touchplaterun1').removeClass("btn-danger").text("Run WCS");
+                
+                // Set G53 machine coordinates Z-value to zero
+                // create Gcode and send to controller
+                var gcode = "G28.3 Z" + plateHeight + "\n";
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+            }
+            
+            else if (transferCode == "run2") {
+                // Run G5x (MCS) button for floating touchplate - Tab 2
+                $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text("G5x Run");
+                
+                // Set G5x offset
+                // Set the G92 offset value
+                var zoffset = probeData.z - plateHeight;
+                // create Gcode and send to controller
+                var gcode = "G10 L2 P1 Z" + zoffset + "\n";
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+            }
+            
+            else if (transferCode == "run3") {
+                // Run G92 (MCS) button for floating touchplate - Tab 2
+                $('#' + this.id + ' .btn-touchplaterun3').removeClass("btn-danger").text("G92 Run");
+                
+                // Set the G5x offset via G92
+                var gcode = "G92 Z" + plateHeight;
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
+            }
+            else if (transferCode == "run4") {
+                // Run G5x (MCS) button for fixed touchplate - Tab 3
+                $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run4");
+                
+                // Set G5x offset
+                // Set the G92 offset value
+                var zoffset = probeData.z - plateHeight;
+                // create Gcode and send to controller
+                var gcode = "G10 L2 P1 Z" + zoffset + "\n";
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode})
+            }
+            else {
+                // Run G92 (MCS) button for fixed touchplate - Tab 3
+                $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run5");
+                
+                // Set the G5x offset via G92
+                var gcode = "G92 Z" + plateHeight;
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+            }
+            
+            // Back tool off of touch plate (2mm)
+            var gcode = "G91 G0 Z2\n";
+    		var id = "tp" + this.gcodeCtr++;
+	    	chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+	    	
+	    	// return to absolute coordinate system
+    		var gcode = "G90\n";
+	    	var id = "tp" + this.gcodeCtr++;
+		    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+        },
+        
         /**
          * Call this method from init to setup all the buttons when this widget
          * is first loaded. This basically attaches click events to your 
@@ -170,43 +522,35 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
                 trigger: "hover",
                 container: 'body'
             });
-
-            // Init Say Hello Button on Main Toolbar
-            // We are inlining an anonymous method as the callback here
-            // as opposed to a full callback method in the Hello Word 2
-            // example further below. Notice we have to use "that" so 
-            // that the this is set correctly inside the anonymous method
-            $('#' + this.id + ' .btn-sayhello').click(function() {
-                console.log("saying hello");
-                // Make sure popover is immediately hidden
-                $('#' + that.id + ' .btn-sayhello').popover("hide");
-                // Show a flash msg
-                chilipeppr.publish(
-                    "/com-chilipeppr-elem-flashmsg/flashmsg",
-                    "Hello Title",
-                    "Hello World from widget " + that.id,
-                    1000
-                );
-            });
-
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
-            $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
-
         },
-        /**
-         * onHelloBtnClick is an example of a button click event callback
-         */
-        onHelloBtnClick: function(evt) {
-            console.log("saying hello 2 from btn in tab 1");
-            chilipeppr.publish(
-                '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Hello 2 Title",
-                "Hello World 2 from Tab 1 from widget " + this.id,
-                2000 /* show for 2 second */
-            );
+
+        isHidden: false,
+        
+        unactivateWidget: function() {
+            if (!this.isHidden) {
+                // unsubscribe from everything
+                console.log("unactivateWidget. unsubscribing.");
+                this.isHidden = true;
+        
+            }
+            // issue resize event so other widgets can reflow
+            $(window).trigger('resize');
         },
+
+        activateWidget: function() {
+            if (!this.isInitted) {
+                this.init();
+            }
+            if (this.isHidden) {
+                // resubscribe
+                console.log("activateWidget. resubscribing.");
+                this.isHidden = false;
+                this.introAnim();
+            }
+            // issue resize event so other widgets can reflow
+            $(window).trigger('resize');
+        },
+
         /**
          * User options are available in this property for reference by your
          * methods. If any change is made on these options, please call
@@ -237,9 +581,13 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
             else {
                 options = {
                     showBody: true,
-                    tabShowing: 1,
-                    customParam1: null,
-                    customParam2: 1.0
+                    tabShowing: 2,
+                    frprobe: 25,
+                    htplate: 1.75,
+                    zclear: 10,
+                    g30x: 180,
+                    g30y: 10,
+                    g30z: 25.4
                 };
             }
 
@@ -263,6 +611,12 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
         saveOptionsLocalStorage: function() {
             // You can add your own values to this.options to store them
             // along with some of the normal stuff like showBody
+            
+            // retrieve input vals
+            this.options.frprobe = $('#' + this.id + '.frprobe').val();
+            this.options.htplate = $('#' + this.id + '.htplate').val();
+            this.options.zclear = $('#' + this.id + '.zclear').val();
+
             var options = this.options;
 
             var optionsStr = JSON.stringify(options);
@@ -341,5 +695,5 @@ cpdefine("inline:com-chilipeppr-widget-touchplate", ["chilipeppr_ready", /* othe
 
         },
 
-    }
+    };
 });
