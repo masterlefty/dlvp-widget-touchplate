@@ -291,10 +291,20 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                
                 // G30 Probe cycle runs an additional routine to move the head
                 // to the fixed probe position befor running the probe cycle
+                /**
+                 * Note: testing has shown that the g91 throughs a bug into the coordinates
+                 * it will add the current mpo position to the G30.1 saved coordinates
+                 * and present them back to WCS coordinates.  Break the Z move into a
+                 * separate step
+                 */
                 if (runCode == "run4" || runCode == "run5") {
-                    // Raise head to clearance height and move to G30 position
+                    // Raise head to clearance height
                     id = "tp" + this.gcodeCtr++;
-                    gcode = "G21 G30 Z" + zclr + "\n";
+                    gcode = "G21 G91 G0 Z" + zclr + "\n";
+                    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                    // Move to G30 position
+                    id = "tp" + this.gcodeCtr++;
+                    gcode = "G21 G90 G30 \n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 }
                 
