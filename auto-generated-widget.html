@@ -357,7 +357,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 if (runCode == "run4" || runCode == "run5") {
                     // Raise head to clearance height and move to G30 position
                     id = "tp" + this.gcodeCtr++;
-                    gcode = "G21 G91 G30 Z" + zclr + "\n";
+                    gcode = "G21 G30 Z" + zclr + "\n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 }
                 
