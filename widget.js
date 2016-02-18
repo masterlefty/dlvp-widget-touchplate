@@ -317,7 +317,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 // Run G38 Probe Cycle
                 id = "tp" + this.gcodeCtr++;
-                gcode = "G38.2 Z-200  F" + fr + "\n";
+                gcode = "G38.2 Z-201  F" + fr + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 id = "tp" + this.gcodeCtr++;
             }
