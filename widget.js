@@ -311,13 +311,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Run the G38.2 probe cycle for all buttons
                 
                 // Set to G21 mm and G91 relative coordinates
-                id = "tp" + this.gcodeCtr++;
-                var gcode = "G21 G91 (Use mm and rel coords)\n";
-                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                //id = "tp" + this.gcodeCtr++;
+                //var gcode = "G21 G90 (Use mm and rel coords)\n";
+                //chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
                 // Run G38 Probe Cycle
                 id = "tp" + this.gcodeCtr++;
-                gcode = "G38.2 Z-201  F" + fr + "\n";
+                gcode = "G21 G38.2 Z-100  F" + fr + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 id = "tp" + this.gcodeCtr++;
             }
