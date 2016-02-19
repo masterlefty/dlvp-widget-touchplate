@@ -367,7 +367,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                     // Move to G30 position
                     id = "tp" + this.gcodeCtr++;
-                    gcode = "G21 G90 G30 \n";
+                    gcode = "G90 G30 \n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 }
                 
