@@ -265,12 +265,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     
                 } else if (runCode == "run4") {
                      // Run G5x (MCS) button for fixed touchplate
-                    $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run4");
+                    $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run");
                     this.isRunning = false;
 
                 } else {
                      // Run G92 (MCS) button for fixed touchplate
-                    $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run5");
+                    $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
                     this.isRunning = false; 
                 }
 
@@ -470,7 +470,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             else if (transferCode == "run4") {
                 // Run G5x (MCS) button for fixed touchplate - Tab 3
-                $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run4");
+                $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run");
                 
                 // Set G5x offset
                 // Set the G92 offset value
@@ -482,7 +482,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             else {
                 // Run G92 (MCS) button for fixed touchplate - Tab 3
-                $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run5");
+                $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
                 
                 // Set the G5x offset via G92
                 var gcode = "G92 Z" + plateHeight;
