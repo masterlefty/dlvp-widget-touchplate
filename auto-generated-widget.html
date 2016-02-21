@@ -288,10 +288,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         onCoordsUpdate: function(coor) {
             console.log("onCoordsUpdate. coords:", coor);
-            if (coor.coordNum != this.lastCoords.coordNum) {
                 $('com-chilipeppr-dlvp-widget-touchplate-coords').text(coor);
                 this.lastCoords = coor;
-            }
         },
         
         /**
@@ -808,7 +806,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                         <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
                     </div>
                 </div>
-            </div> <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v1</span>
+            </div> 
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v1</span>
+            <div class="com-chilipeppr-dlvp-widget-touchplate-coords">coor</div>
 
         </div>
         <div class="panel-body">
