@@ -225,7 +225,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         onCoordsUpdate: function(coor) {
             console.log("onCoordsUpdate. coords:", coor);
-                $('com-chilipeppr-dlvp-widget-touchplate-coords').text(coor);
+                $('.btn-touchplaterun2').text(coor);
                 this.lastCoords = coor;
         },
         
