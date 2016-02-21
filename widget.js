@@ -219,16 +219,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             chilipeppr.subscribe('/com-chilipeppr-widget-3dviewer/recvUnits', this, this.updateUnitsFromStatus);
         },
         
-        lastCoords: {
-            coor: null,
-            coordNum: null
-        },
-        onCoordsUpdate: function(coor) {
-            console.log("onCoordsUpdate. coords:", coor);
-                $('.btn-touchplaterun2').text(coor);
-                this.lastCoords = coor;
-        },
-        
         /**
          * Call this method on button click to begin running the touch plate
          * code and set the Z-zero value.
@@ -270,7 +260,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     
                 } else if (runCode == "run2") {
                     // Run G5x (MCS) button for floating touchplate
-                    $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(coor);
+                    $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text("G5x Run");
                     this.isRunning = false;
                     
                 }else if (runCode == "run3") {
