@@ -224,6 +224,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * or elements, that this widget/element publishes to.
          */
         foreignPublish: {
+            '/com-chilipeppr-widget-3dviewer/requestUnits': 'Issue request to 3D viewer to receive current unit definition'
             // Define a key:value pair here as strings to document what signals you publish to
             // that are owned by foreign/other widgets.
             // '/jsonSend': 'Example: We send Gcode to the serial port widget to do stuff with the CNC controller.'
@@ -233,9 +234,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * or elements, that this widget/element subscribes to.
          */
         foreignSubscribe: {
-            '/com-chilipeppr-interface-cnccontroller/axes': 'We want X,Y,Z,A,MX,MY,MZ,MA axis updates.',
             '/com-chilipeppr-interface-cnccontroller/coords': 'Track which is active: G54, G55, etc.',
-            '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
+            '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.',
+            '/com-chilipeppr-widget-3dviewer/recvUnits': 'Listening to in case Chilipeppr didn’t load fast enough to get unitsChanged event. Double check to cover bases'
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
@@ -275,6 +276,22 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             $('#' + this.id + ' .btn-touchplaterun6').click(this.onG30.bind(this));
 
             console.log("I am done being initted.");
+            
+            chilipeppr.subscribe('/com-chilipeppr-widget-3dviewer/unitsChanged', this, this.updateUnitsFromStatus);
+            // in case we didn't get loaded fast enough, thus we never got the /unitsChanged event from the 3d viewer, we better double check here and fire off a request just to cover all our bases
+            chilipeppr.subscribe('/com-chilipeppr-widget-3dviewer/recvUnits', this, this.updateUnitsFromStatus);
+        },
+        
+        lastCoords: {
+            coord: null,
+            coordNum: null
+        },
+        onCoordsUpdate: function(coords) {
+            console.log("onCoordsUpdate. coords:", coords);
+            if (coords.coordNum != this.lastCoords.coordNum) {
+                $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coord);
+                this.lastCoords = coords;
+            }
         },
         
         /**
