@@ -220,14 +220,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         lastCoords: {
-            coord: null,
+            coor: null,
             coordNum: null
         },
-        onCoordsUpdate: function(coords) {
-            console.log("onCoordsUpdate. coords:", coords);
-            if (coords.coordNum != this.lastCoords.coordNum) {
-                $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coord);
-                this.lastCoords = coords;
+        onCoordsUpdate: function(coor) {
+            console.log("onCoordsUpdate. coords:", coor);
+            if (coor.coordNum != this.lastCoords.coordNum) {
+                $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coor);
+                this.lastCoords = coor;
             }
         },
         
