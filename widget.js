@@ -228,13 +228,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onCoordsUpdate: function(coords) {
             console.log("onCoordUpdate. coords:", coords);
             if (coords.coord != this.lastCoords.coord) {
-                alert("coord:", coords.coord, "coordNum:",coords.coordNum);
                 // this was for a line on the first tab
                 // $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coordNum);
                 $('.com-chilipeppr-dlvp-widget-touchplate-tab2-name').text(coords.coord +" Float");
                 $('.com-chilipeppr-dlvp-widget-touchplate-tab3-name').text(coords.coord +" Fixed");
                 $('#' + this.id + ' .btn-touchplaterun2').text(coords.coord + " Run");
                 $('#' + this.id + ' .btn-touchplaterun4').text(coords.coord + " Run");
+                alert("coord:", coords.coord, "coordNum:",coords.coordNum);
                 
                 this.lastCoords = coords;
                 gCoordNum = coords.coordNum; //54, 55, etc
