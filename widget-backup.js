@@ -1,4 +1,4 @@
-/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum zoffset */
+/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -457,13 +457,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // Cycle stop and swap buttons to run
             this.isRunning = false;
             
-            // Define plateHeight for inclusion into G53 Z0 setting
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
-
-            // Define zoffset for use in the next function
-            var zoffset = probeData.z - plateHeight;
 
             if (transferCode == "run1") {
                 // Run WCS (G53) button - Tab 1
@@ -479,29 +475,64 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else if (transferCode == "run2") {
                 // Run G5x (MCS) button for floating touchplate - Tab 2
                 $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(gCoord + " Run");
+                
+                // Set G5x offset
+                // Set the G92 offset value
+                var zoffset = probeData.z - plateHeight;
+                
+                // Get coordNum for inclusion in G10 L2 Pn
+                //var prbCoordNum = gCoordNum;
+                var prbCoordNum = Number(this.lastCoords.coordNum);
+                alert("prbCoordNum is:" + (prbCoordNum - 53));
+                
+                // create Gcode and send to controller
+                var gcode = "G10 L2 P" + (prbCoordNum - 53) + " Z" + zoffset + "\n";
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
             
             else if (transferCode == "run3") {
                 // Run G92 (MCS) button for floating touchplate - Tab 2
                 $('#' + this.id + ' .btn-touchplaterun3').removeClass("btn-danger").text("G92 Run");
+                
+                alert("what is the coordinate system?")
+                // Set the G5x offset via G92
+                var gcode = "G92 Z" + plateHeight;
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
             }
-
             else if (transferCode == "run4") {
                 // Run G5x (MCS) button for fixed touchplate - Tab 3
                 $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text(gCoord + " Run");
+                
+                // Set G5x offset
+                // Set the G92 offset value
+                var zoffset = probeData.z - plateHeight;
+                // create Gcode and send to controller
+                var gcode = "G10 L2 P" + (this.lastCoords.coordNum - 53) + "Z" + zoffset + "\n";
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode})
             }
-
             else {
                 // Run G92 (MCS) button for fixed touchplate - Tab 3
                 $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
+                
+                // Set the G5x offset via G92
+                var gcode = "G92 Z" + plateHeight;
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
-            // now set the G10 L2 Pn - set Z-0 values
-		    this.setG10Axis(zoffset);
-        },
-        
-        setG10Axis: function (zoffset) {
-            console.log("the zoffset is: ", zoffset);
-            alert("the zoffset is: ", zoffset);
+            
+            // Back tool off of touch plate (2mm)
+            var gcode = "G91 G0 Z2\n";
+    		var id = "tp" + this.gcodeCtr++;
+	    	chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+	    	
+	    	// return to absolute coordinate system
+    		var gcode = "G90\n";
+	    	var id = "tp" + this.gcodeCtr++;
+		    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
         },
         
         /**
