@@ -1,4 +1,4 @@
-/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum zoffset */
+/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -463,7 +463,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("plateHeight:", plateHeight);
 
             // Define zoffset for use in the next function
-            zoffset = probeData.z - plateHeight;
+            var zoffset = probeData.z - plateHeight;
 
             if (transferCode == "run1") {
                 // Run WCS (G53) button - Tab 1
@@ -496,14 +496,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
             }
             // now set the G10 L2 Pn - set Z-0 values
-		    this.setG10Axis();
+		    this.setG10Axis(zoffset);
         },
         
-        setG10Axis: function () {
+        setG10Axis: function (g10z) {
             
-            var g10zoffset = Number(zoffset);
-            console.log("the zoffset is: ", g10zoffset);
-            alert("the zoffset is: ", g10zoffset);
+            var zoffset = Number(g10z);
+            console.log("the zoffset is: ", g10z);
+            alert("the zoffset is: ", g10z);
         },
         
         /**
