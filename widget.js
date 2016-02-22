@@ -480,6 +480,11 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Set G5x offset
                 // Set the G92 offset value
                 var zoffset = probeData.z - plateHeight;
+                
+                var gcode = "\n";
+                var id = "tp" + this.gcodeCtr++;
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
                 // Get coordNum for inclusion in G10 L2 Pn
                 //var prbCoordNum = gCoordNum;
                 var prbCoordNum = Number(this.lastCoords.coordNum);
