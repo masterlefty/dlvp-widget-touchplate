@@ -499,14 +499,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
 		    this.setG10Axis(probeData.z);
         },
         
-        setG10Axis: function (probeData) {
-            alert("probeData: ", transferCode);
+        setG10Axis: function (evt) {
+            alert("probeData: ", transferCode, "other", zoffset);
             
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
                 
-            var g10z = probeData.z - plateHeight;
+            var g10z = zoffset;
             
         },
         
