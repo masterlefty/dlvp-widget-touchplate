@@ -508,7 +508,11 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // probeData should be of the format
             // {"e":1,"z":-7.844}
             console.log("onAfterProbeDone. probeData:", probeData);
-            alert("the coordNum - 53 is:" + (this.lastCoords.coordNum - 53));
+            
+            // Get coordNum for inclusion in G10 L2 Pn
+            //var prbCoordNum = gCoordNum;
+            var prbCoordNum = this.lastCoords.coordNum;
+            
             
             // unsub so we stop getting events
             this.watchForProbeEnd();
@@ -517,8 +521,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.audio.play();
             
             // Stop controller upon completion of probing cycle
-            console.log("The transferCode is:", transferCode);
-            
             // Cycle stop and swap buttons to run
             this.isRunning = false;
             var plateHeight = $('#' + this.id + ' .htplate').val();
@@ -544,7 +546,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Set the G92 offset value
                 var zoffset = probeData.z - plateHeight;
                 // create Gcode and send to controller
-                var gcode = "G10 L2 P" + (this.lastCoords.coordNum - 53) + "Z" + zoffset + "\n";
+                var gcode = "G10 L2 P" + (prbCoordNum - 53) + "Z" + zoffset + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
