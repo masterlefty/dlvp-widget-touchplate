@@ -463,7 +463,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("plateHeight:", plateHeight);
 
             // Define zoffset for use in the next function
-            var zoffset = probeData.z - plateHeight;
+            zoffset = probeData.z - plateHeight;
 
             if (transferCode == "run1") {
                 // Run WCS (G53) button - Tab 1
@@ -496,12 +496,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
             }
             // now set the G10 L2 Pn - set Z-0 values
-		    this.setG10Axis(zoffset);
+		    this.setG10Axis(probeData);
         },
         
-        setG10Axis: function (zoffset) {
-            console.log("the zoffset is: ", zoffset);
-            alert("the zoffset is: ", zoffset);
+        setG10Axis: function (probeData) {
+            console.log("the zoffset is: ", probeData.z);
+            alert("the zoffset is: ", probeData.z);
         },
         
         /**
