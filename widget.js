@@ -446,12 +446,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // {"e":1,"z":-7.844}
             console.log("onAfterProbeDone. probeData:", probeData);
             
-            // Get coordNum for inclusion in G10 L2 Pn
-            //var prbCoordNum = gCoordNum;
-            var prbCoordNum = Number(this.lastCoords.coordNum);
-            alert("prbCoordNum is:" + (prbCoordNum + 2));
-            
-            
             // unsub so we stop getting events
             this.watchForProbeEnd();
             
@@ -461,6 +455,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // Stop controller upon completion of probing cycle
             // Cycle stop and swap buttons to run
             this.isRunning = false;
+            
+            // Get coordNum for inclusion in G10 L2 Pn
+            //var prbCoordNum = gCoordNum;
+            var prbCoordNum = Number(this.lastCoords.coordNum);
+            alert("prbCoordNum is:" + (prbCoordNum - 53));
+            
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
