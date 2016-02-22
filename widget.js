@@ -496,10 +496,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
             }
             // now set the G10 L2 Pn - set Z-0 values
-		    this.setG10Axis(probeData.z);
+		    this.setG10Axis();
         },
         
-        setG10Axis: function (evt) {
+        setG10Axis: function () {
             alert("probeData: ", transferCode, zoffset);
             
             var plateHeight = $('#' + this.id + ' .htplate').val();
