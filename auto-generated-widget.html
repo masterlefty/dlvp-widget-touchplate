@@ -297,8 +297,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('.com-chilipeppr-dlvp-widget-touchplate-tab3-name').text(coords.coord +" Fixed");
                 $('#' + this.id + ' .btn-touchplaterun2').text(coords.coord + " Run");
                 $('#' + this.id + ' .btn-touchplaterun4').text(coords.coord + " Run");
-                alert("coord:", coords.coord, "coordNum:",coords.coordNum);
-                
+
                 this.lastCoords = coords;
                 gCoordNum = coords.coordNum; //54, 55, etc
                 gCoord = coords.coord; // G54, G55, etc
@@ -318,6 +317,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onRun: function(evt) {
             // when user clicks the run button
             console.log("user clicked run button. evt:", evt, event.target.id);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             
             // define variable to determine which subroutine to run based on
             // user selection through the tabs
@@ -571,6 +571,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("plateHeight:", plateHeight);
                 
             var g10z = zoffset;
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this.onCoordsUpdate.bind(this));
             
         },
         
