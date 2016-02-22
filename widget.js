@@ -456,11 +456,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // Cycle stop and swap buttons to run
             this.isRunning = false;
             
-            // Get coordNum for inclusion in G10 L2 Pn
-            //var prbCoordNum = gCoordNum;
-            var prbCoordNum = Number(this.lastCoords.coordNum);
-            alert("prbCoordNum is:" + (prbCoordNum - 53));
-            
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
@@ -479,6 +474,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else if (transferCode == "run2") {
                 // Run G5x (MCS) button for floating touchplate - Tab 2
                 $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(gCoord + " Run");
+                
+                // Get coordNum for inclusion in G10 L2 Pn
+                //var prbCoordNum = gCoordNum;
+                var prbCoordNum = Number(this.lastCoords.coordNum);
+                alert("prbCoordNum is:" + (prbCoordNum - 53));
+                
                 
                 // Set G5x offset
                 // Set the G92 offset value
