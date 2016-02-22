@@ -500,8 +500,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         setG10Axis: function () {
-            console.log("the zoffset is: ", zoffset);
-            alert("the zoffset is: ", zoffset);
+            
+            var g10zoffset = zoffset.val();
+            console.log("the zoffset is: ", g10zoffset);
+            alert("the zoffset is: ", g10zoffset);
         },
         
         /**
