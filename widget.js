@@ -174,7 +174,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         foreignSubscribe: {
             '/com-chilipeppr-interface-cnccontroller/axes': 'We want X,Y,Z,A,MX,MY,MZ,MA axis updates.',
             '/com-chilipeppr-interface-cnccontroller/coords': " Track which is coordinate system is active: G54, G55, etc. The value is {coord:\"g55\", coordNum: 55} or for G92 {coord:\"g92\", coordNum: 92} or for machine {coord:\"g53\", coordNum: 53}",
-            '/com-chilipeppr-interface-cnccontroller/units': 'Track which unit mode is active. The walue is normalized as {units: \"mm\"} or {units: \"inch\"}',
+            '/com-chilipeppr-interface-cnccontroller/units': 'Track which unit mode is active. The value is normalized as {units: \"mm\"} or {units: \"inch\"}',
             '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
@@ -227,6 +227,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         
         onCoordsUpdate: function(coords) {
             console.log("onCoordUpdate. coords:", coords);
+            alert("coord:", coords.coord, "coordNum:",coords.coordNum);
             if (coords.coord != this.lastCoords.coord) {
                 // this was for a line on the first tab
                 // $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coordNum);
