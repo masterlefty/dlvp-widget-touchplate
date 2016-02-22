@@ -495,7 +495,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Run G92 (MCS) button for floating touchplate - Tab 2
                 $('#' + this.id + ' .btn-touchplaterun3').removeClass("btn-danger").text("G92 Run");
                 
-                Alert("what is the coordinate system?")
+                alert("what is the coordinate system?")
                 // Set the G5x offset via G92
                 var gcode = "G92 Z" + plateHeight;
                 var id = "tp" + this.gcodeCtr++;
