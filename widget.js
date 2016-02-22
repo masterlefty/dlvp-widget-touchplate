@@ -500,7 +500,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         setG10Axis: function (evt) {
-            alert("probeData: ", transferCode, "other", zoffset);
+            alert("probeData: ", transferCode, zoffset);
             
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
