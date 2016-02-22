@@ -239,6 +239,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 gCoordNum = coords.coordNum; //54, 55, etc
                 gCoord = coords.coord; // G54, G55, etc
             }
+            
         },
         
         /**
@@ -445,6 +446,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // probeData should be of the format
             // {"e":1,"z":-7.844}
             console.log("onAfterProbeDone. probeData:", probeData);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             
             // unsub so we stop getting events
             this.watchForProbeEnd();
@@ -475,17 +477,16 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Run G5x (MCS) button for floating touchplate - Tab 2
                 $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(gCoord + " Run");
                 
+                // Set G5x offset
+                // Set the G92 offset value
+                var zoffset = probeData.z - plateHeight;
                 // Get coordNum for inclusion in G10 L2 Pn
                 //var prbCoordNum = gCoordNum;
                 var prbCoordNum = Number(this.lastCoords.coordNum);
                 alert("prbCoordNum is:" + (prbCoordNum - 53));
                 
-                
-                // Set G5x offset
-                // Set the G92 offset value
-                var zoffset = probeData.z - plateHeight;
                 // create Gcode and send to controller
-                var gcode = "G10 L2 P" + (prbCoordNum - 53) + "Z" + zoffset + "\n";
+                var gcode = "G10 L2 P" + (prbCoordNum - 53) + " Z" + zoffset + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
