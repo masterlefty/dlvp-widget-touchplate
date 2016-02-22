@@ -364,7 +364,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onG30: function(evt) {
             // when user clicks the G30 button
             console.log("user clicked run button. evt:", evt, event.target.id);
-            alert("the coordNum - 53 is:" + this.lastCoords.coordNum - 53);
+            alert("the coordNum - 53 is:" + (this.lastCoords.coordNum - 53));
             
             // define variable to determine which subroutine to run based on
             // user selection through the tabs
