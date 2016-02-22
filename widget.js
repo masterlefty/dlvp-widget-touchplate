@@ -500,14 +500,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         setG10Axis: function (probeData) {
+            alert("probeData: ", probeData);
             
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
                 
             var g10z = probeData.z - plateHeight;
-            console.log("the zoffset is: ", g10z);
-            alert("the zoffset is: ", g10z);
+            
         },
         
         /**

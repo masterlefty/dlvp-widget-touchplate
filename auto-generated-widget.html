@@ -563,14 +563,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         setG10Axis: function (probeData) {
+            alert("probeData: ", probeData);
             
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
                 
             var g10z = probeData.z - plateHeight;
-            console.log("the zoffset is: ", g10z);
-            alert("the zoffset is: ", g10z);
+            
         },
         
         /**
@@ -801,7 +801,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v2C</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v2d</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
