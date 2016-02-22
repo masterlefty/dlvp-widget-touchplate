@@ -474,13 +474,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             else if (transferCode == "run2") {
                 // Run G5x (MCS) button for floating touchplate - Tab 2
-                $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text("G5x Run");
+                $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(gCoord + " Run");
                 
                 // Set G5x offset
                 // Set the G92 offset value
                 var zoffset = probeData.z - plateHeight;
                 // create Gcode and send to controller
-                var gcode = "G10 L2 P1 Z" + zoffset + "\n";
+                var gcode = "G10 L2 P" + gCoordNum-53 + "Z" + zoffset + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
@@ -497,7 +497,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             else if (transferCode == "run4") {
                 // Run G5x (MCS) button for fixed touchplate - Tab 3
-                $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run");
+                $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text(gCoord + " Run");
                 
                 // Set G5x offset
                 // Set the G92 offset value
