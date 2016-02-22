@@ -480,7 +480,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Set the G92 offset value
                 var zoffset = probeData.z - plateHeight;
                 // create Gcode and send to controller
-                var gcode = "G10 L2 P" + gCoordNum-53 + "Z" + zoffset + "\n";
+                var gcode = "G10 L2 P" + (gCoordNum - 53) + "Z" + zoffset + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
@@ -503,7 +503,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Set the G92 offset value
                 var zoffset = probeData.z - plateHeight;
                 // create Gcode and send to controller
-                var gcode = "G10 L2 P1 Z" + zoffset + "\n";
+                var gcode = "G10 L2 P" + (gCoord -53) + "Z" + zoffset + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode})
             }
