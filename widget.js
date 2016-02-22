@@ -446,7 +446,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // probeData should be of the format
             // {"e":1,"z":-7.844}
             console.log("onAfterProbeDone. probeData:", probeData);
-            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             
             // unsub so we stop getting events
             this.watchForProbeEnd();
@@ -481,10 +480,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Set the G92 offset value
                 var zoffset = probeData.z - plateHeight;
                 
-                var gcode = "\n";
-                var id = "tp" + this.gcodeCtr++;
-                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
-                
                 // Get coordNum for inclusion in G10 L2 Pn
                 //var prbCoordNum = gCoordNum;
                 var prbCoordNum = Number(this.lastCoords.coordNum);
@@ -500,6 +495,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Run G92 (MCS) button for floating touchplate - Tab 2
                 $('#' + this.id + ' .btn-touchplaterun3').removeClass("btn-danger").text("G92 Run");
                 
+                Alert("what is the coordinate system?")
                 // Set the G5x offset via G92
                 var gcode = "G92 Z" + plateHeight;
                 var id = "tp" + this.gcodeCtr++;
