@@ -448,8 +448,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Get coordNum for inclusion in G10 L2 Pn
             //var prbCoordNum = gCoordNum;
-            var prbCoordNum = this.lastCoords.coordNum;
-            alert("prbCoordNum is:" + prbCoordNum + 2);
+            var prbCoordNum = this.lastCoords.coordNum.val();
+            alert("prbCoordNum is:" + (prbCoordNum + 2));
             
             
             // unsub so we stop getting events
