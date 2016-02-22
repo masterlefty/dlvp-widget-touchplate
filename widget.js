@@ -496,12 +496,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
             }
             // now set the G10 L2 Pn - set Z-0 values
-		    this.setG10Axis(probeData);
+		    this.setG10Axis();
         },
         
-        setG10Axis: function (probeData) {
-            console.log("the zoffset is: ", probeData.z);
-            alert("the zoffset is: ", probeData.z);
+        setG10Axis: function () {
+            console.log("the zoffset is: ", zoffset);
+            alert("the zoffset is: ", zoffset);
         },
         
         /**
