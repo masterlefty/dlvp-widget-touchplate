@@ -1,4 +1,4 @@
-/* global requirejs cprequire cpdefine chilipeppr transferCode */
+/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -161,6 +161,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * or elements, that this widget/element publishes to.
          */
         foreignPublish: {
+            '/jsonSend': 'We send Gcode to the serial port widget to do stuff with the CNC controller.',
             '/com-chilipeppr-widget-3dviewer/requestUnits': 'Issue request to 3D viewer to receive current unit definition'
             // Define a key:value pair here as strings to document what signals you publish to
             // that are owned by foreign/other widgets.
@@ -171,9 +172,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * or elements, that this widget/element subscribes to.
          */
         foreignSubscribe: {
-            '/com-chilipeppr-interface-cnccontroller/coords': 'Track which is active: G54, G55, etc.',
-            '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.',
-            '/com-chilipeppr-widget-3dviewer/recvUnits': 'Listening to in case Chilipeppr didn’t load fast enough to get unitsChanged event. Double check to cover bases'
+            '/com-chilipeppr-interface-cnccontroller/axes': 'We want X,Y,Z,A,MX,MY,MZ,MA axis updates.',
+            '/com-chilipeppr-interface-cnccontroller/coords': " Track which is coordinate system is active: G54, G55, etc. The value is {coord:\"g55\", coordNum: 55} or for G92 {coord:\"g92\", coordNum: 92} or for machine {coord:\"g53\", coordNum: 53}",
+            '/com-chilipeppr-interface-cnccontroller/units': 'Track which unit mode is active. The walue is normalized as {units: \"mm\"} or {units: \"inch\"}',
+            '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
@@ -192,6 +194,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // load audio
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
+            
+            // We want to track which coordinate system is active
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this.onCoordsUpdate.bind(this));
             
             /**
              * Setup Run Buttons
@@ -213,10 +218,27 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             $('#' + this.id + ' .btn-touchplaterun6').click(this.onG30.bind(this));
 
             console.log("I am done being initted.");
-            
-            chilipeppr.subscribe('/com-chilipeppr-widget-3dviewer/unitsChanged', this, this.updateUnitsFromStatus);
-            // in case we didn't get loaded fast enough, thus we never got the /unitsChanged event from the 3d viewer, we better double check here and fire off a request just to cover all our bases
-            chilipeppr.subscribe('/com-chilipeppr-widget-3dviewer/recvUnits', this, this.updateUnitsFromStatus);
+        },
+        
+        lastCoords: {
+            coord: null, // G54, G55, etc
+            coordNum: null // 54, 55, etc
+        },
+        
+        onCoordsUpdate: function(coords) {
+            console.log("onCoordUpdate. coords:", coords);
+            if (coords.coord != this.lastCoords.coord) {
+                // this was for a line on the first tab
+                // $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coordNum);
+                $('.com-chilipeppr-dlvp-widget-touchplate-tab2-name').text(coords.coord +" Float");
+                $('.com-chilipeppr-dlvp-widget-touchplate-tab3-name').text(coords.coord +" Fixed");
+                $('#' + this.id + ' .btn-touchplaterun2').text(coords.coord + " Run");
+                $('#' + this.id + ' .btn-touchplaterun4').text(coords.coord + " Run");
+                
+                this.lastCoords = coords;
+                gCoordNum = coords.coordNum; //54, 55, etc
+                gCoord = coords.coord; // G54, G55, etc
+            }
         },
         
         /**
@@ -260,7 +282,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     
                 } else if (runCode == "run2") {
                     // Run G5x (MCS) button for floating touchplate
-                    $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text("G5x Run");
+                    $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(gCoord + " Run");
                     this.isRunning = false;
                     
                 }else if (runCode == "run3") {
@@ -270,7 +292,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     
                 } else if (runCode == "run4") {
                      // Run G5x (MCS) button for fixed touchplate
-                    $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text("G5x Run");
+                    $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text(gCoord + " Run");
                     this.isRunning = false;
 
                 } else {

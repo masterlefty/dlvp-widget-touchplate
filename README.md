@@ -98,7 +98,7 @@ To better understand how ChiliPeppr's subscribe() method works see amplify.js's 
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/requestUnits</td><td>Issue request to 3D viewer to receive current unit definition</td></tr>    
+      <tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/jsonSend</td><td>We send Gcode to the serial port widget to do stuff with the CNC controller.</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/requestUnits</td><td>Issue request to 3D viewer to receive current unit definition</td></tr>    
       </tbody>
   </table>
 
@@ -115,7 +115,7 @@ To better understand how ChiliPeppr's publish() method works see amplify.js's do
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/coords</td><td>Track which is active: G54, G55, etc.</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/unitsChanged</td><td>We need to know which units the Gcode is utilizing.</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/recvUnits</td><td>Listening to in case Chilipeppr didn’t load fast enough to get unitsChanged event. Double check to cover bases</td></tr>    
+      <tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/axes</td><td>We want X,Y,Z,A,MX,MY,MZ,MA axis updates.</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/coords</td><td> Track which is coordinate system is active: G54, G55, etc. The value is {coord:"g55", coordNum: 55} or for G92 {coord:"g92", coordNum: 92} or for machine {coord:"g53", coordNum: 53}</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/units</td><td>Track which unit mode is active. The walue is normalized as {units: "mm"} or {units: "inch"}</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/unitsChanged</td><td>We need to know which units the Gcode is utilizing.</td></tr>    
       </tbody>
   </table>
 
@@ -137,7 +137,7 @@ other widgets know how to subscribe to them and what they do.</td></tr><tr valig
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>foreignPublish</td><td>object</td><td>Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgets
 or elements, that this widget/element publishes to.</td></tr><tr valign="top"><td>foreignSubscribe</td><td>object</td><td>Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgets
 or elements, that this widget/element subscribes to.</td></tr><tr valign="top"><td>init</td><td>function</td><td>function () <br><br>All widgets should have an init method. It should be run by the
-instantiating code like a workspace or a different widget.</td></tr><tr valign="top"><td>gcodeCtr</td><td>number</td><td>Call this method on button click to begin running the touch plate
+instantiating code like a workspace or a different widget.</td></tr><tr valign="top"><td>lastCoords</td><td>object</td><td></td></tr><tr valign="top"><td>onCoordsUpdate</td><td>function</td><td>function (coords) </td></tr><tr valign="top"><td>gcodeCtr</td><td>number</td><td>Call this method on button click to begin running the touch plate
 code and set the Z-zero value.</td></tr><tr valign="top"><td>isRunning</td><td>boolean</td><td></td></tr><tr valign="top"><td>transferCode</td><td>object</td><td></td></tr><tr valign="top"><td>runCode</td><td>object</td><td></td></tr><tr valign="top"><td>onRun</td><td>function</td><td>function (evt) </td></tr><tr valign="top"><td>onG30</td><td>function</td><td>function (evt) </td></tr><tr valign="top"><td>watchForProbeStart</td><td>function</td><td>function () <br><br>Subscribes to the recvline to analyze data being received</td></tr><tr valign="top"><td>watchForProbeEnd</td><td>function</td><td>function () <br><br>Watch for signal that touchplate circuit is closed</td></tr><tr valign="top"><td>onRecvLineForProbe</td><td>function</td><td>function (data) <br><br>Opens the recvline to the controller to receive data</td></tr><tr valign="top"><td>onAfterProbeDone</td><td>function</td><td>function (probeData) </td></tr><tr valign="top"><td>btnSetup</td><td>function</td><td>function () <br><br>Call this method from init to setup all the buttons when this widget
 is first loaded. This basically attaches click events to your 
 buttons. It also turns on all the bootstrap popovers by scanning
