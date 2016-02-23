@@ -216,7 +216,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             $('#' + this.id + ' .btn-touchplaterun6').click(this.onG30.bind(this));
 
             // We want to track which coordinate system is active
-            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate.bind);
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
 
             console.log("I am done being initted.");
         },
@@ -227,7 +227,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         onCoordsUpdate: function(coords) {
-            console.log("onCoordUpdate. coords:", coords);
+            console.log("onCoordsUpdate. coords:", coords);
             if (coords.coord != this.lastCoords.coord) {
                 // this was for a line on the first tab
                 // $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coordNum);
