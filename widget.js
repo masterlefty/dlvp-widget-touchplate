@@ -196,7 +196,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
             
             // We want to track which coordinate system is active
-            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this.onCoordsUpdate.bind(this));
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate.bind);
             
             /**
              * Setup Run Buttons
