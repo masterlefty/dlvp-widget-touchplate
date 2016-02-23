@@ -195,8 +195,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // load audio
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
             
-            // We want to track which coordinate system is active
-            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate.bind);
             
             /**
              * Setup Run Buttons
@@ -216,6 +214,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Tab 4 - G30 Goto Position - defines location of fixed touchplate
             $('#' + this.id + ' .btn-touchplaterun6').click(this.onG30.bind(this));
+
+            // We want to track which coordinate system is active
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate.bind);
 
             console.log("I am done being initted.");
         },
