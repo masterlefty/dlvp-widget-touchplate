@@ -239,7 +239,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 gCoordNum = coords.coordNum; //54, 55, etc
                 gCoord = coords.coord; // G54, G55, etc
             }
-            
         },
         
         /**
@@ -366,6 +365,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onG30: function(evt) {
             // when user clicks the G30 button
             console.log("user clicked run button. evt:", evt, event.target.id);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
 
             // define variable to determine which subroutine to run based on
             // user selection through the tabs
@@ -407,6 +407,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          */
         watchForProbeStart: function() {
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLineForProbe);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
         },
         
         /**
@@ -414,6 +415,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          */
         watchForProbeEnd: function() {
             chilipeppr.unsubscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLineForProbe);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
         },
         
         /**
@@ -426,6 +428,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("did not get dataline in data. returning.");
 				return;
             }
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             
             // inspect data to ensure it is in the correct format
             // ex. {"prb":{"e":1,"z":-7.844}}
@@ -508,7 +511,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("plateHeight:", plateHeight);
                 
             var g10z = zoffset;
-            //chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this.onCoordsUpdate.bind(this));
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this.onCoordsUpdate.bind(this));
             
         },
         
