@@ -317,6 +317,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onRun: function(evt) {
             // when user clicks the run button
             console.log("user clicked run button. evt:", evt, event.target.id);
+            
+            // Stop tracking coordinates
             chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             
             // define variable to determine which subroutine to run based on
@@ -345,25 +347,26 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     $('#' + this.id + ' .btn-touchplaterun1').removeClass("btn-danger").text("Run WCS");
                     this.isRunning = false;
                     
-                } else if (runCode == "run2") {
+                } else if (runCode == "run2" || "run4") {
                     // Run G5x (MCS) button for floating touchplate
                     $('#' + this.id + ' .btn-touchplaterun2').removeClass("btn-danger").text(gCoord + " Run");
                     this.isRunning = false;
                     
-                }else if (runCode == "run3") {
+                //}else if (runCode == "run3") {
+                } else { //(runCode == "run3" || "run5") 
                     // Run G92 (MCS) button for floating touchplate
                     $('#' + this.id + ' .btn-touchplaterun3').removeClass("btn-danger").text("G92 Run");
                     this.isRunning = false;
                     
-                } else if (runCode == "run4") {
+                //} else if (runCode == "run4") {
                      // Run G5x (MCS) button for fixed touchplate
-                    $('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text(gCoord + " Run");
-                    this.isRunning = false;
+                    //$('#' + this.id + ' .btn-touchplaterun4').removeClass("btn-danger").text(gCoord + " Run");
+                    //this.isRunning = false;
 
-                } else {
+                //} else {
                      // Run G92 (MCS) button for fixed touchplate
-                    $('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
-                    this.isRunning = false; 
+                    //$('#' + this.id + ' .btn-touchplaterun5').removeClass("btn-danger").text("G92 Run");
+                    //this.isRunning = false; 
                 }
 
             } else {
@@ -471,7 +474,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          */
         watchForProbeStart: function() {
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLineForProbe);
-            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            //chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
         },
         
         /**
@@ -479,7 +482,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          */
         watchForProbeEnd: function() {
             chilipeppr.unsubscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLineForProbe);
-            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            //chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
         },
         
         /**
@@ -492,7 +495,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("did not get dataline in data. returning.");
 				return;
             }
-            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            //chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             
             // inspect data to ensure it is in the correct format
             // ex. {"prb":{"e":1,"z":-7.844}}
@@ -530,6 +533,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             if (isNaN(plateHeight)) plateHeight = 0;
                 console.log("plateHeight:", plateHeight);
 
+            console.log("probeData.z:", probeData.z);
+            alert("probeData: ", probeData.z);
             // Define zoffset for use in the next function
             zoffset = probeData.z - plateHeight;
 
@@ -568,7 +573,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         setG10Axis: function () {
-            alert("probeData: ", transferCode, zoffset);
             
             var plateHeight = $('#' + this.id + ' .htplate').val();
             if (isNaN(plateHeight)) plateHeight = 0;
@@ -807,7 +811,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v2a</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v2c</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
