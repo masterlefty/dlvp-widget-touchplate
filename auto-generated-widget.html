@@ -295,7 +295,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         onCoordsUpdate: function(coords) {
-            console.log("onCoordsUpdate. coords:", coords);
+            console.log("on coords update:", coords);
             if (coords.coord != this.lastCoords.coord) {
                 $('.tplate-tab2-name').text(coords.coord +" Float");
                 $('.tplate-tab3-name').text(coords.coord +" Fixed");
@@ -875,14 +875,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon">mm/min</div>
+                                        <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control  input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon">mm</div>
+                                            <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
                                 </td>

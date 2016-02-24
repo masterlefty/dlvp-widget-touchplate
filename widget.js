@@ -228,7 +228,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         },
         
         onCoordsUpdate: function(coords) {
-            console.log("onCoordsUpdate. coords:", coords);
+            console.log("on coords update:", coords);
             if (coords.coord != this.lastCoords.coord) {
                 $('.tplate-tab2-name').text(coords.coord +" Float");
                 $('.tplate-tab3-name').text(coords.coord +" Fixed");
