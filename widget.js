@@ -1,4 +1,5 @@
-/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum zoffset */
+/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum 
+   zoffset gcodeUnit */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -202,25 +203,32 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
              * as defined on each tab
              */
             // Tab 1 - MCS G53 machine coordinate system  - moveable touchplate
-            $('#' + this.id + ' .btn-touchplaterun1').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-tplaterun1').click(this.onRun.bind(this));
             
             // Tab 2 - WCS G5x work coordinate system - moveable touchplate
-            $('#' + this.id + ' .btn-touchplaterun2').click(this.onRun.bind(this));
-            $('#' + this.id + ' .btn-touchplaterun3').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-tplaterun2').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-tplaterun3').click(this.onRun.bind(this));
             
             // Tab 3 - WCS G5x work coordinate system - fixed touchplate
-            $('#' + this.id + ' .btn-touchplaterun4').click(this.onRun.bind(this));
-            $('#' + this.id + ' .btn-touchplaterun5').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-tplaterun4').click(this.onRun.bind(this));
+            $('#' + this.id + ' .btn-tplaterun5').click(this.onRun.bind(this));
             
             // Tab 4 - G30 Goto Position - defines location of fixed touchplate
-            $('#' + this.id + ' .btn-touchplaterun6').click(this.onG30.bind(this));
+            $('#' + this.id + ' .btn-tplaterun6').click(this.onG30.bind(this));
 
             // We want to track which coordinate system is active
             chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            // We want to track which units are active
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/units',this, this.onUnitsUpdate);
 
             console.log("I am done being initted.");
         },
         
+        /**
+         * We need to know which coordinate system is active
+         * Tabs 2 and 3 will set Z-zero based on the current
+         * coordinate system
+         */
         lastCoords: {
             coord: null, // G54, G55, etc
             coordNum: null // 54, 55, etc
@@ -231,16 +239,43 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             if (coords.coord != this.lastCoords.coord) {
                 // this was for a line on the first tab
                 // $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coordNum);
-                $('.com-chilipeppr-dlvp-widget-touchplate-tab2-name').text(coords.coord +" Float");
-                $('.com-chilipeppr-dlvp-widget-touchplate-tab3-name').text(coords.coord +" Fixed");
-                $('#' + this.id + ' .btn-touchplaterun2').text(coords.coord + " Run");
-                $('#' + this.id + ' .btn-touchplaterun4').text(coords.coord + " Run");
+                $('.tplate-tab2-name').text(coords.coord +" Float");
+                $('.tplate-tab3-name').text(coords.coord +" Fixed");
+                $('#' + this.id + ' .btn-tplaterun2').text(coords.coord + " Run");
+                $('#' + this.id + ' .btn-tplaterun4').text(coords.coord + " Run");
 
                 this.lastCoords = coords;
                 gCoordNum = coords.coordNum; //54, 55, etc
                 gCoord = coords.coord; // G54, G55, etc
             }
         },
+        
+        /**
+         * We need to know which units the G-code is using
+         * The G38.2 command will run in the current
+         * coordinate system
+         */
+        currentUnits: null,
+        gcodeUnit: null,
+        
+        onUnitsUpdate: function(units) {
+            console.log("onUnitsUpdate. units:",units);
+            if(units.units != this.currentUnits) {
+                // Update unit definitions on Widget
+                $('.tplt-dim').text(units);
+                $('.tplt-dimv').text(units + "/min");
+                
+                this.currentUnits = units;
+            }
+            // Store record of current unit defined in G-code file, unsubscribe
+            // upon execution of probe cycle
+            if (this.currentUnits == "mm") {
+                gcodeUnit = "G21 (mm)";
+            } else {
+                gcodeUnit = "G20 (inch)";
+            }
+        },
+        
         
         /**
          * Call this method on button click to begin running the touch plate
@@ -257,6 +292,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Stop tracking coordinates
             chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            // Stop tracking units
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/units',this, this.onUnitsUpdate);
             
             // define variable to determine which subroutine to run based on
             // user selection through the tabs
@@ -281,17 +318,17 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Swap clicked button to run
                 if (runCode == "run1") {
                     // Run WCS (G53) button
-                    $('#' + this.id + ' .btn-touchplaterun1').removeClass("btn-danger").text("Run WCS");
+                    $('#' + this.id + ' .btn-tplaterun1').removeClass("btn-danger").text("Run WCS");
                     this.isRunning = false;
                 
                 } else if (runCode == "run2" || "run4") {
                     // Run G5x (MCS) button
-                    $('#' + this.id + ' .btn-touchplate' + runCode).removeClass("btn-danger").text(gCoord + " Run");
+                    $('#' + this.id + ' .btn-tplate' + runCode).removeClass("btn-danger").text(gCoord + " Run");
                     this.isRunning = false;
                     
                 } else {
                     // Run G92 (MCS) button
-                    $('#' + this.id + ' .btn-touchplate' + runCode).removeClass("btn-danger").text("G92 Run");
+                    $('#' + this.id + ' .btn-tplate' + runCode).removeClass("btn-danger").text("G92 Run");
                     this.isRunning = false;
                 }
 
@@ -301,7 +338,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 this.isRunning = true;
                 // Start controller and swap button to stop
-                $('#' + this.id + ' .btn-touchplate' + runCode).addClass("btn-danger").text("Stop");
+                $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
                 var fr = $('#' + this.id + ' .frprobe').val();
@@ -320,29 +357,32 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                  */
                 if (runCode == "run4" || "run5") {
                     // Raise head to clearance height
-                    id = "tp" + this.gcodeCtr++;
-                    gcode = "G21 G91 G0 Z" + zclr + "\n";
+                    var id = "tp" + this.gcodeCtr++;
+                    var gcode = "G21 G91 G0 Z" + zclr + "\n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                     // Move to G30 position
-                    id = "tp" + this.gcodeCtr++;
-                    gcode = "G90 G30 \n";
+                    var id = "tp" + this.gcodeCtr++;
+                    var gcode = "G90 G30 \n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 }
                 
                 // Run G38 Probe Cycle for all buttons
-                id = "tp" + this.gcodeCtr++;
-                gcode = "G21 G38.2 Z-100  F" + fr + "\n";
+                var id = "tp" + this.gcodeCtr++;
+                var gcode = "G21 G38.2 Z-100  F" + fr + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
-                id = "tp" + this.gcodeCtr++;
             }
         },
         
         /**
          * Call this method when the G30 define button is clicked on tab 4.
          * The G30 Tab 4 will create a defined position, through a G30.1 command 
-         * that locates a fixed touchplate. Send G30.1 - This will "remember" the 
-         * absolute position. This position remains constant regardless of what
-         * coordinate system is in effect.
+         * that locates a fixed touchplate. 
+         * 
+         * Note: G30 command is not persistent.
+         * 
+         * Sending the G30.1 - This will "remember" the absolute position. This 
+         * position remains constant regardless of what coordinate system is 
+         * in effect.
          */
         gcodeCtr: 0,
         isRunning: false,
@@ -367,7 +407,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
                 // Swap selected button to run
-                    $('#' + this.id + ' .btn-touchplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
+                    $('#' + this.id + ' .btn-tplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
                     this.isRunning = false;
             } else {
                 
@@ -375,15 +415,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.isRunning = true;
                 
                 // Swap selected button to stop
-                $('#' + this.id + ' .btn-touchplaterun6').addClass("btn-danger").text("Stop");
+                $('#' + this.id + ' .btn-tplaterun6').addClass("btn-danger").text("Stop");
                 
                 // Send command to set the G30 location
-                id = "tp" + this.gcodeCtr++;
-                gcode = "G90 G30.1 \n";
+                var id = "tp" + this.gcodeCtr++;
+                var gcode = "G90 G30.1 \n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
                 // Swap selected button to run
-                    $('#' + this.id + ' .btn-touchplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
+                    $('#' + this.id + ' .btn-tplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
                     this.isRunning = false;
             }
         },
@@ -425,16 +465,20 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
 		        // yes, it's data for the probe ending
 		    
 		        // now do all the final steps now that we got our data
-		        this.onAfterProbeDone(json.prb);
+		        this.afterProbeDone(json.prb);
 		    }
         },
         
+        /**
+         * Close recvline to the controller and complete probe cycle
+         * Depending on which button was clicked, the function will
+         * set the the Z-zero for the appropriate coordinate system
+         */
         zoffet: 0,
-        
-        onAfterProbeDone: function(probeData) {
+        afterProbeDone: function(probeData) {
             // probeData should be of the format
             // {"e":1,"z":-7.844}
-            console.log("onAfterProbeDone. probeData:", probeData);
+            console.log("afterProbeDone. probeData:", probeData);
             
             // unsub so we stop getting events
             this.watchForProbeEnd();
@@ -446,29 +490,29 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // Cycle stop and swap buttons to run
             this.isRunning = false;
             
-            // Define plateHeight for inclusion into G53 Z0 setting
-            var plateHeight = $('#' + this.id + ' .htplate').val();
-            if (isNaN(plateHeight)) plateHeight = 0;
-                console.log("plateHeight:", plateHeight);
+            // Define Height of Plate (plth) for inclusion into setting Z-zero
+            var plth = $('#' + this.id + ' .htplate').val();
+            if (isNaN(plth)) plth = 0;
+                console.log("plateHeight:", plth);
 
             console.log("probeData.z:", probeData.z);
             // Define zoffset for use in the next function
-            var zoffset = probeData.z - plateHeight;
+            var zoffset = probeData.z - plth;
 
             if (transferCode == "run1") {
                 // Run WCS (G53) button - Tab 1
-                $('#' + this.id + ' .btn-touchplaterun1').removeClass("btn-danger").text("Run WCS");
+                $('#' + this.id + ' .btn-tplaterun1').removeClass("btn-danger").text("Run WCS");
                 
                 // Set G53 machine coordinates Z-value to zero
                 // create Gcode and send to controller
-                var gcode = "G28.3 Z" + plateHeight + "\n";
+                var gcode = "G28.3 Z" + plth + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
             
             else if (transferCode == "run2" || "run4") {
                 // Run G5x (MCS) button for floating touchplate - Tab 2 or 3
-                $('#' + this.id + ' .btn-touchplate' + transferCode).removeClass("btn-danger").text(gCoord + " Run");
+                $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text(gCoord + " Run");
                 
                 // Get coordNum for inclusion in G10 L2 Pn
                 //var prbCoordNum = gCoordNum;
@@ -482,10 +526,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             else {
                 // Run G92 (MCS) button for fixed touchplate - Tab 2 or 3
-                $('#' + this.id + ' .btn-touchplate' + transferCode).removeClass("btn-danger").text("G92 Run");
+                $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text("G92 Run");
                 
                  // Set the G5x offset via G92
-                var gcode = "G92 Z" + plateHeight + "\n";
+                var gcode = "G92 Z" + plth + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
@@ -500,7 +544,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
 	    	var id = "tp" + this.gcodeCtr++;
 		    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             
+            // Turn on subscription to track  Coordinate System is active
             chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            // Turn on subscription to track which units are active
+            chilipeppr.subscribe('/com-chilipeppr-interface-cnccontroller/units',this, this.onUnitsUpdate);
         },
         
         /**
@@ -596,10 +643,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     tabShowing: 2,
                     frprobe: 25,
                     htplate: 1.75,
-                    zclear: 10,
-                    g30x: 180,
-                    g30y: 10,
-                    g30z: 25.4
+                    zclear: 10
                 };
             }
 

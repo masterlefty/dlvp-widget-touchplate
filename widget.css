@@ -4,6 +4,10 @@
    
 }
 
+#com-chilipeppr-dlvp-widget-touchplate .units-head, .tplate-unit {
+   font-size: 12px;
+}
+
 #com-chilipeppr-dlvp-widget-touchplate .nav-tabs>li>a {
     padding: 3px 15px;
 }
@@ -38,6 +42,6 @@
    padding: 10px;
 }
 
-#com-chilipeppr-dlvp-widget-touchplate .input-group-addon{
+#com-chilipeppr-dlvp-widget-touchplate .tplt-dim, .tplt-dimv{
    font-size: 10px;
 }

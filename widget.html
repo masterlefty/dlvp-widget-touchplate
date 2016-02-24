@@ -34,8 +34,10 @@
 <body>
     <div id="com-chilipeppr-dlvp-widget-touchplate" class="panel panel-default">
         <div class="panel-heading">
-
             <div class="btn-toolbar pull-right" role="toolbar">
+                <div class="btn-group">
+                    <span class="units-head">Gcode Units:</span><span class="tplate-unit">mm</span>
+                </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-xs btn-default hidebody"><span class="glyphicon glyphicon-chevron-up"></span>
                     </button>
@@ -48,15 +50,15 @@
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">v2a</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab1" role="tab" data-toggle="tab">MCS G53</a></li>
                 <li class="active">
-                    <a href="#com-chilipeppr-dlvp-widget-touchplate-tab2" role="tab" data-toggle="tab"><span class = "com-chilipeppr-dlvp-widget-touchplate-tab2-name">G5x Float</span></a></li>
-                <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab3" role="tab" data-toggle="tab"><span class = "com-chilipeppr-dlvp-widget-touchplate-tab3-name">G5x Fixed</span></a></li>
+                    <a href="#com-chilipeppr-dlvp-widget-touchplate-tab2" role="tab" data-toggle="tab"><span class = "tplate-tab2-name">G5x Float</span></a></li>
+                <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab3" role="tab" data-toggle="tab"><span class = "tplate-tab3-name">G5x Fixed</span></a></li>
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab4" role="tab" data-toggle="tab">G30</a></li>
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab5" role="tab" data-toggle="tab">Notes</a></li>
             </ul>
@@ -82,19 +84,19 @@
                                     </ul>
                                 </td>
                                 <td class = "td-1R">
-                                    <p><button type="button" id="run1" class="btn xbtn-xs btn-primary btn-touchplaterun1" style="width:100%;">Run</button></p>
+                                    <p><button type="button" id="run1" class="btn xbtn-xs btn-primary btn-tplaterun1" style="width:100%;">Run</button></p>
                                     <p></p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon">mm/min</div>
+                                        <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control  input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon">mm</div>
+                                            <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
                                 </td>
@@ -120,21 +122,21 @@
                                 </td>
                                 <td class = "td-1R">
                                     <p>
-                                        <button type="button" id="run2" class="btn xbtn-xs btn-primary btn-touchplaterun2" style="width:48%;">G5X Run</button>
-                                        <button type="button" id="run3" class="btn xbtn-xs btn-info btn-touchplaterun3" style="width:48%;">G92 Run</button>
+                                        <button type="button" id="run2" class="btn xbtn-xs btn-primary btn-tplaterun2" style="width:48%;">G5X Run</button>
+                                        <button type="button" id="run3" class="btn xbtn-xs btn-info btn-tplaterun3" style="width:48%;">G92 Run</button>
                                     </p>
                                     <p></p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon">mm/min</div>
+                                        <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon">mm</div>
+                                            <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
                                 </td>
@@ -161,26 +163,26 @@
                                 </td>
                                 <td class = "td-1R">
                                     <p>
-                                        <button type="button" id="run4" class="btn xbtn-xs btn-primary btn-touchplaterun4" style="width:48%;">G5x Run</button>
-                                        <button type="button" id="run5" class="btn xbtn-xs btn-info btn-touchplaterun5" style="width:48%;">G92 Run</button>
+                                        <button type="button" id="run4" class="btn xbtn-xs btn-primary btn-tplaterun4" style="width:48%;">G5x Run</button>
+                                        <button type="button" id="run5" class="btn xbtn-xs btn-info btn-tplaterun5" style="width:48%;">G92 Run</button>
                                     </p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon">mm/min</div>
+                                        <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon">mm</div>
+                                            <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Z Clearance</div>
                                         <div class="input-group">
                                             <input class="form-control input-sm zclear" type="number" min="0" placeholder="0.00" value="10" />
-                                            <div class="input-group-addon">mm</div>
+                                            <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
                                 </td>
@@ -204,7 +206,7 @@
                                     </ul>
                                 </td>
                                 <td class = "td-1R">
-                                    <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-touchplaterun6" style="width:100%;">Define G30</button></p>
+                                    <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-tplaterun6" style="width:100%;">Define G30</button></p>
                                 </td>
                             </tr>
                         </tbody>
