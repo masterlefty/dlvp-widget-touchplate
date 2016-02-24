@@ -254,9 +254,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             console.log("onUnitsUpdate. units:",units);
             if (units != this.currentUnits) {
                 // Update unit definitions on Widget
-                $('#' + this.id + '.tplate-unit').text(units);
-                $('#' + this.id + '.tplt-dim').text(units);
-                $('#' + this.id + '.tplt-dimv').text(units + "/min");
+                $('.tplate-unit').text(units);
+                $('.tplt-dim').text(units);
+                $('.tplt-dimv').text(units + "/min");
                 
                 this.currentUnits = units;
             }
