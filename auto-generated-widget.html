@@ -836,7 +836,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3c</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
@@ -861,11 +861,11 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <br>Sets Z-zero for MCS (G53)</p>
                                     <ul style="padding-left: 20px">
                                         <li>Position touch probe</li>
-                                        <li>Enter values for feedrate and height</li>
                                         <li>Click "Run" to set G53 Z-zero</li>
-                                        <li style= "margin-left: 10px; padding-right: 10px">
-                                            <i>Exercise caution after a subsequence tool changes without 
-                                               re-running this Widget, there is a chance of crashing the tool.</i>
+                                        <li><b>Exercise caution:</b><i> 
+                                            This routine resets the Machine's 
+                                            base coordinate system (G53) to 
+                                            <br>Z-min.</i>
                                         </li>
                                     </ul>
                                 </td>
@@ -898,11 +898,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                             <tr>
                                 <td class = "td-1L">
                                     <p>Runs from the current location. 
-                                    <br>Sets Z-zero for WCS</p>
+                                    <br>Sets Z-zero for current WCS.</p>
                                     <ul style="padding-left: 20px">
                                         <li>Position touch probe</li>
-                                        <li>Enter values for feedrate and height</li>
-                                        <li>Click "G5x Run" to set G5x Z-zero</li>
+                                        <li>Click "<span class = "tplate-notes">G5x</span> Run" to set WCS Z-zero</li>
                                         <li>Click "G92 Run" to set temporary offset</li>
                                     </ul>
                                 </td>
@@ -938,13 +937,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                             <tr>
                                 <td class = "td-1L">
                                     <p>Runs from the fixed location via G30. 
-                                    <br>Sets Z-zero for WCS</p>
+                                    <br>Sets Z-zero for current WCS.</p>
                                     <ul style="padding-left: 20px">
-                                        <li>Enter values for feedrate and height</li>
-                                        <li>Enter Z-clearance value to raise head</li>
-                                        <li>Click "G5x Run" to set G5x Z-zero</li>
+                                        <li>Click "<span class = "tplate-notes">G5x</span> Run" to set WCS Z-zero</li>
                                         <li>Click "G92 Run" to set temporary offset</li>
                                         <li><i>Use G30 tab to define fixed location</i></li>
+                                        <br>
+                                        <li><b>Warning:</b> G30 settings are <u>not</u> persistent!
+                                        <br>  G30 must be defined on each startup via the 'G30 tab', 
+                                              a macro, or G-code addition.</li>
                                     </ul>
                                 </td>
                                 <td class = "td-1R">
@@ -983,16 +984,17 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <p>Defines the G30 position regardless<br> of WCS.
-                                    <br><b>Note</b>: <u>G30 settings are not persistent!</u></p>
+                                    <p>Defines the G30 position regardless of WCS.
+                                    <br><b>Warning:</b> G30 settings are <u>not</u> persistent!</p>
                                     <ul style="padding-left:20px">
                                         <li>Move to X & Y-axis location above fixed touch plate.</li>
-                                        <li>Adjust Z-height to ensure tool will clear the touchplate.</li>
-                                        <li>Click button to set the G30 location</li>
+                                        <li>Adjust Z-height to ensure tooling will clear the touchplate.</li>
+                                        <li>Click "Define G30" to set the location</li>
                                     </ul>
                                 </td>
                                 <td class = "td-1R">
                                     <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-tplaterun6" style="width:100%;">Define G30</button></p>
+                                    <p><b>Note:</b> G30 must be defined and run under the Machine base units [mm]</p>
                                 </td>
                             </tr>
                         </tbody>
