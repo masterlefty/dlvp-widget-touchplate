@@ -115,7 +115,7 @@ To better understand how ChiliPeppr's publish() method works see amplify.js's do
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/axes</td><td>We want X,Y,Z,A,MX,MY,MZ,MA axis updates.</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/coords</td><td> Track which is coordinate system is active: G54, G55, etc. The value is {coord:"g55", coordNum: 55} or for G92 {coord:"g92", coordNum: 92} or for machine {coord:"g53", coordNum: 53}</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/units</td><td>Track which unit mode is active. The value is normalized as {units: "mm"} or {units: "inch"}</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/unitsChanged</td><td>We need to know which units the Gcode is utilizing.</td></tr>    
+      <tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/coords</td><td> Track which is coordinate system is active: G54, G55, etc. The value is {coord:"g55", coordNum: 55} or for G92 {coord:"g92", coordNum: 92} or for machine {coord:"g53", coordNum: 53}</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-interface-cnccontroller/units</td><td>Track which unit mode is active. The value is normalized as {units: "mm"} or {units: "inch"}</td></tr><tr valign="top"><td>/com-chilipeppr-dlvp-widget-touchplate/com-chilipeppr-widget-3dviewer/unitsChanged</td><td>We need to know which units the Gcode is utilizing.</td></tr>    
       </tbody>
   </table>
 

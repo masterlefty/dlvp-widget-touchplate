@@ -20,8 +20,8 @@
    
 }
 
-#com-chilipeppr-dlvp-widget-touchplate .units-head, .tplate-unit {
-   font-size: 12px;
+#com-chilipeppr-dlvp-widget-touchplate .input-group-addon {
+   font-size: 11px;
 }
 
 #com-chilipeppr-dlvp-widget-touchplate .nav-tabs>li>a {
@@ -231,22 +231,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         foreignPublish: {
             '/jsonSend': 'We send Gcode to the serial port widget to do stuff with the CNC controller.',
             //'/com-chilipeppr-widget-3dviewer/requestUnits': 'Issue request to 3D viewer to receive current unit definition'
-            // Define a key:value pair here as strings to document what signals you publish to
-            // that are owned by foreign/other widgets.
-            // '/jsonSend': 'Example: We send Gcode to the serial port widget to do stuff with the CNC controller.'
         },
         /**
          * Document the foreign subscribe signals, i.e. signals owned by other widgets
          * or elements, that this widget/element subscribes to.
          */
         foreignSubscribe: {
-            '/com-chilipeppr-interface-cnccontroller/axes': 'We want X,Y,Z,A,MX,MY,MZ,MA axis updates.',
             '/com-chilipeppr-interface-cnccontroller/coords': " Track which is coordinate system is active: G54, G55, etc. The value is {coord:\"g55\", coordNum: 55} or for G92 {coord:\"g92\", coordNum: 92} or for machine {coord:\"g53\", coordNum: 53}",
             '/com-chilipeppr-interface-cnccontroller/units': 'Track which unit mode is active. The value is normalized as {units: \"mm\"} or {units: \"inch\"}',
             '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
-            // Define a key:value pair here as strings to document what signals you subscribe to
-            // that are owned by foreign/other widgets.
-            // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
         },
         /**
          * All widgets should have an init method. It should be run by the
@@ -830,7 +823,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         <div class="panel-heading">
             <div class="btn-toolbar pull-right" role="toolbar">
                 <div class="btn-group">
-                    <span class="units-head">Gcode Units:</span><span class = "tplate-unit">blank</span>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-xs btn-default hidebody"><span class="glyphicon glyphicon-chevron-up"></span>
@@ -844,7 +836,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3B</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
@@ -867,6 +859,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                 <td class = "td-1L">
                                     <p>Runs from the current location. 
                                     <br>Sets Z-zero for MCS (G53)</p>
+                                    <span class = "tplate-unit">unit</span>
                                     <ul style="padding-left: 20px">
                                         <li>Position touch probe</li>
                                         <li>Enter values for feedrate and height</li>
@@ -883,14 +876,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon"><span class = "tplt-dimv">mm/min</span></div>
+                                        <div class="input-group-addon">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control  input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon"><span class = "tplt-dim"></span>mm</div>
+                                            <div class="input-group-addon">mm</div>
                                         </div>
                                     </div>
                                 </td>
@@ -923,14 +916,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon tplt-dimv">mm/min</div>
+                                        <div class="input-group-addon">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon tplt-dim">mm</div>
+                                            <div class="input-group-addon">mm</div>
                                         </div>
                                     </div>
                                 </td>
@@ -963,20 +956,20 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon tplt-dimv">mm/min</div>
+                                        <div class="input-group-addon">mm/min</div>
                                     </div>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon tplt-dim">mm</div>
+                                            <div class="input-group-addon">mm</div>
                                         </div>
                                     </div>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Z Clearance</div>
                                         <div class="input-group">
                                             <input class="form-control input-sm zclear" type="number" min="0" placeholder="0.00" value="10" />
-                                            <div class="input-group-addon tplt-dim">mm</div>
+                                            <div class="input-group-addon">mm</div>
                                         </div>
                                     </div>
                                 </td>

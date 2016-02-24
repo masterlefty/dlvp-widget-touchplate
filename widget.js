@@ -164,22 +164,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         foreignPublish: {
             '/jsonSend': 'We send Gcode to the serial port widget to do stuff with the CNC controller.',
             //'/com-chilipeppr-widget-3dviewer/requestUnits': 'Issue request to 3D viewer to receive current unit definition'
-            // Define a key:value pair here as strings to document what signals you publish to
-            // that are owned by foreign/other widgets.
-            // '/jsonSend': 'Example: We send Gcode to the serial port widget to do stuff with the CNC controller.'
         },
         /**
          * Document the foreign subscribe signals, i.e. signals owned by other widgets
          * or elements, that this widget/element subscribes to.
          */
         foreignSubscribe: {
-            '/com-chilipeppr-interface-cnccontroller/axes': 'We want X,Y,Z,A,MX,MY,MZ,MA axis updates.',
             '/com-chilipeppr-interface-cnccontroller/coords': " Track which is coordinate system is active: G54, G55, etc. The value is {coord:\"g55\", coordNum: 55} or for G92 {coord:\"g92\", coordNum: 92} or for machine {coord:\"g53\", coordNum: 53}",
             '/com-chilipeppr-interface-cnccontroller/units': 'Track which unit mode is active. The value is normalized as {units: \"mm\"} or {units: \"inch\"}',
             '/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
-            // Define a key:value pair here as strings to document what signals you subscribe to
-            // that are owned by foreign/other widgets.
-            // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
         },
         /**
          * All widgets should have an init method. It should be run by the
