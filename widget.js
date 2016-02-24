@@ -391,6 +391,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // when user clicks the G30 button
             console.log("user clicked run button. evt:", evt, event.target.id);
             chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/units',this, this.onUnitsUpdate);
 
             // define variable to determine which subroutine to run based on
             // user selection through the tabs

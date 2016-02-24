@@ -458,6 +458,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // when user clicks the G30 button
             console.log("user clicked run button. evt:", evt, event.target.id);
             chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
+            chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/units',this, this.onUnitsUpdate);
 
             // define variable to determine which subroutine to run based on
             // user selection through the tabs
@@ -829,7 +830,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         <div class="panel-heading">
             <div class="btn-toolbar pull-right" role="toolbar">
                 <div class="btn-group">
-                    <span class="units-head">Gcode Units:</span><span class="tplate-unit">blank</span>
+                    <span class="units-head">Gcode Units:</span><span class = "tplate-unit">blank</span>
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-xs btn-default hidebody"><span class="glyphicon glyphicon-chevron-up"></span>
@@ -882,14 +883,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
                                         <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
-                                        <div class="input-group-addon tplt-dimv">mm/min</div>
+                                        <div class="input-group-addon"><span class = "tplt-dimv">mm/min</span></div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
                                             <input class="form-control  input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
-                                            <div class="input-group-addon tplt-dim">mm</div>
+                                            <div class="input-group-addon"><span class = "tplt-dim"></span>mm</div>
                                         </div>
                                     </div>
                                 </td>
