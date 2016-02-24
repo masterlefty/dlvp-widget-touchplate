@@ -230,9 +230,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onCoordsUpdate: function(coords) {
             console.log("on coords update:", coords);
             if (coords.coord != this.lastCoords.coord) {
-                $('.tplate-tab2-name').text(coords.coord +" Float");
-                $('.tplate-tab3-name').text(coords.coord +" Fixed");
-                $('.tplate-notes').text(coords.coord);
+                $('#' + this.id + ' .tplate-tab2-name').text(coords.coord +" Float");
+                $('#' + this.id + ' .tplate-tab3-name').text(coords.coord +" Fixed");
+                $('#' + this.id + ' .tplate-notes').text(coords.coord);
                 $('#' + this.id + ' .btn-tplaterun2').text(coords.coord + " Run");
                 $('#' + this.id + ' .btn-tplaterun4').text(coords.coord + " Run");
 
@@ -254,9 +254,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             console.log("onUnitsUpdate. units:",units);
             if (units != this.currentUnits) {
                 // Update unit definitions on Widget
-                $('.tplate-unit').text(units);
-                $('.tplt-dim').text(units);
-                $('.tplt-dimv').text(units + "/min");
+                $('#' + this.id + '.tplate-unit').text(units);
+                $('#' + this.id + '.tplt-dim').text(units);
+                $('#' + this.id + '.tplt-dimv').text(units + "/min");
                 
                 this.currentUnits = units;
             }
@@ -487,7 +487,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // Define Height of Plate (plth) for inclusion into setting Z-zero
             var plth = $('#' + this.id + ' .htplate').val();
             if (isNaN(plth)) plth = 0;
-                console.log("plateHeight:", plth);
+                console.log("heightPlate:", plth);
 
             console.log("probeData.z:", probeData.z);
             // Define zoffset for use in the next function
@@ -632,13 +632,24 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("just evaled options: ", options);
             }
             else {
-                options = {
-                    showBody: true,
-                    tabShowing: 2,
-                    frprobe: 25,
-                    htplate: 1.75,
-                    zclear: 10
-                };
+                if (gcodeUnit == "G21 (mm)") {
+                    options = {
+                        showBody: true,
+                        tabShowing: 2,
+                        frprobe: 25,
+                        htplate: 1.75,
+                        zclear: 10
+                    };
+                } 
+                else {
+                    options = {
+                        showBody: true,
+                        tabShowing: 2,
+                        frprobe: 1,
+                        htplate: 0.625,
+                        zclear: .5
+                    };
+                }
             }
 
             this.options = options;
@@ -665,7 +676,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // retrieve input vals
             this.options.frprobe = $('#' + this.id + '.frprobe').val();
             this.options.htplate = $('#' + this.id + '.htplate').val();
-            this.options.zclear = $('#' + this.id + '.zclear').val();
+            this.options.zclear =  $('#' + this.id + '.zclear').val();
 
             var options = this.options;
 

@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
@@ -219,64 +219,75 @@
                 <div class="tab-pane settings-notes" id="com-chilipeppr-dlvp-widget-touchplate-tab5">
                     <p><a href="#mcs">Jump to MCS (G53) </a> | <a href="#wcsfl"> Jump to WCS Floating</a> | <a href="#wcsfx">Jump to WCS Fixed</a></p>
                     <dl>
-                        <dt><b>General Notes</b></dt>
-                        <li>Probe cycle runs in the base Machine units of mm.
-                        </li>
-                        <li>Probing works in the Machine Coordinate system (G53)
-                        </li>
-                    </dl> 
+                        <dt><b>Electrical Connections</b></dt>
+                        <li>Connect the tool to an input ground on the TinyG board</li>
+                        <li>Connect the touchplate to the Z-min input on the TinyG board</li>
+                    </dl>
                     
                     <dl>
-                        <dt><b>Electrical Connections</b></dt>
-                        <li>Connect tool to an input ground on the TinyG board
-                        </li>
-                        <li>Wire the touchplate to the Z-min input on the TingG
-                        </li>
-                    </dl>
-                  
-                    <dl>
                         <dt><b>Probe Operations</b></dt>
-                        <li>Run the touchplate widget after each tool change.
-                        </li>
-                        <li>Afterwards the Z-value is set to the top surface 
-                            on which the touchplate rests.</li>
-                        <li>During the operation; the machine switches to G53 
-                            mode, machine (absolute) coordinates. The program 
-                            also runs in G21 mode (mm units).</li>
-                        <dd><li>Exercise caution after a subsequence tool 
-                            change without re-running this Widget.</li></dd>
-                        <dd>ex. "<i>Go To Machine Home</i>", or "<i>Go To G5x 
-                            Zero</i>", there is a chance of crashing the tool 
-                            into the workbed or workpiece.</i></dd>
+                        <li>Input conditions: enter values for Feed Rate, Height of Touch Plate, and Z-clearance as noted on the various tabs</li>
+                        <li>After running, Z-zero is set to the surface on which the touchplate rests</li>
+                        <li>Run after each tool change</li>
+                            <ul>
+                            <li><b>Exercise caution</b> after subsequence tool change without re-running</li>
+                            <li><i>"Go To Machine Home"</i>, or <i>"Go To G5x Zero"</i> commands introduce a chance of crashing the tool into the workbed or workpiece</li>
                     </dl>
-                  
+                    
+                    <dl>
+                        <dt><b>General Notes</b></dt>
+                        <li>The G38.2 Straight Probe cycle runs in the Machine’s base coordinates and units, (i.e) Absolute coordinate system (G53) and metric units [mm]</li>
+                        <li>Prefered method is to run under G21 [mm], but the controller will accept and correctly interpret G20 [inch] for units</li>
+                        <li>The G28/G30 Go To Position cycle runs only under machine units G21 [mm]</li>
+                        <li>Regression testing has been performed:</li>
+                        <ul>
+                            <li> G38.2
+                                <ul>
+                                    <li>Runs under machine coordinates and units</li>
+                                    <li>Will accept input values in mm or or inch, as defined by system units</li>
+                                    <li>Ignores G91 (relative coordinate mode)</li>
+                                </ul>
+                                <li> G28/G30
+                                    <ul>
+                                        <li>Runs under machine coordinates and units</li>
+                                        <li><u>Must</u> run under machine units; G21 [mm]</li>
+                                        <ul>
+                                            <li><i>The controller does not correctly interpret and convert from inch units when switching to base machine units</i></li>
+                                        </ul>
+                                        <li>Accepts G91 (relative coordinate mode) commands, but does not implement correctly</li>
+                                        <ul>
+                                            <li><i>The controller reads the absolute value settings for position and adds them incrementally to the current position coordinates</i></li>
+                                        </ul>
+                                    </ul>
+                                </li>
+                            </li>
+                        </ul>
+                    </dl>
+
                     <dl><hr>
                         <dt id="mcs"><b>MCS</b> (G53) -</dt>
                         <dd>- Probing sequence runs from the machine’s current 
                             X-Y position</dd>
                         <dd>- Clamp workpiece or stock into machine</dd>
-                        <dd>- During the operation; the machine switches to 
-                            G53 mode, machine (absolute) coordinates. The 
-                            program also runs in G21 mode (mm units).</dd>
-                        <dd><i>- Exercise caution after a subsequence tool 
-                            change without re-running this Widget (ex. "Go To 
-                            Machine Home", "Go To G5x Zero"), there is a 
-                            chance of crashing the tool.</i>
-                    </dd>
+                        <dd>- Locate the moveable touchplate on the desired 
+                            work surface, and position the tool so it is 
+                            located above the touchplate</dd>
+                        <dd>- During operation; the machine switches to 
+                            G53 mode, machine (absolute) coordinates</dd>
 
                     <ul><dt>Notes:</dt>
-                        <dd>- This routine does <u>not</u> set G5x Z-axis to 
-                            zero(0).</dd>
+                        <dd>- This routine does <u>not</u> set the G5x Z-axis 
+                            to zero(0)</dd>
                         <dd>- Any offset coordinate systems (G54, G55, etc) 
-                            are readjusted based on the new Machine Z-0 value.
+                            are readjusted based on the new Machine Z-0 value
                             </dd>
                         <dd>- The G5x Z-axis will not be zero(0), unless G5x 
-                            is mapped to the machine coordinate system (MCS).
+                            is mapped to the machine coordinate system (MCS)
                             </dd>
                         <dd>- This routine is useful if you do not utilize 
                             work coordinates (WCS), or if current WCS (ex. 
                             G54) is mapped to the Machine’s absolute (MCS) 
-                            coordinates.</dd>
+                            coordinates</dd>
                         <dd>- <i>Once the job(s) is/are complete, consider 
                             rehoming the Machine’s Z-axis coordinate (G28.2 
                             z0, if limit switches are installed; or adjust 
@@ -317,7 +328,8 @@
                             the machine</dd>
                         <dd>- Location is established with from a pre-
                             established G30 location</dd>
-                        <dd>- Use G30.1 to set the position for G30.</dd>
+                        <dd>- Use "Define G30" to set the fixed position</dd>
+                        <dd>- <b>Note: </b>G30 settings are <u>not</u> persistent</dd>
                         <dd><i>- Useful when the bottom of the material is 
                             defined as workpiece Z0.</i></dd>
                         <dd>- Probing sequence runs from predefined X-Y 
