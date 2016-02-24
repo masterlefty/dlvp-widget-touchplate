@@ -163,7 +163,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          */
         foreignPublish: {
             '/jsonSend': 'We send Gcode to the serial port widget to do stuff with the CNC controller.',
-            '/com-chilipeppr-widget-3dviewer/requestUnits': 'Issue request to 3D viewer to receive current unit definition'
+            //'/com-chilipeppr-widget-3dviewer/requestUnits': 'Issue request to 3D viewer to receive current unit definition'
             // Define a key:value pair here as strings to document what signals you publish to
             // that are owned by foreign/other widgets.
             // '/jsonSend': 'Example: We send Gcode to the serial port widget to do stuff with the CNC controller.'
@@ -237,8 +237,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         onCoordsUpdate: function(coords) {
             console.log("onCoordsUpdate. coords:", coords);
             if (coords.coord != this.lastCoords.coord) {
-                // this was for a line on the first tab
-                // $('.com-chilipeppr-dlvp-widget-touchplate-coords').text(coords.coordNum);
                 $('.tplate-tab2-name').text(coords.coord +" Float");
                 $('.tplate-tab3-name').text(coords.coord +" Fixed");
                 $('#' + this.id + ' .btn-tplaterun2').text(coords.coord + " Run");
@@ -262,9 +260,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             console.log("onUnitsUpdate. units:",units);
             if(units.units != this.currentUnits) {
                 // Update unit definitions on Widget
-                $('.tplate-unit').text(units);
-                $('.tplt-dim').text(units);
-                $('.tplt-dimv').text(units + "/min");
+                $('.tplate-unit').text(units.units);
+                $('.tplt-dim').text(units.units);
+                $('.tplt-dimv').text(units.units + "/min");
                 
                 this.currentUnits = units;
             }
