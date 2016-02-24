@@ -351,7 +351,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 if (runCode == "run4" || "run5") {
                     // Raise head to clearance height
                     var id = "tp" + this.gcodeCtr++;
-                    var gcode = "G21 G91 G0 Z" + zclr + "\n";
+                    var gcode = "G91 G0 Z" + zclr + "\n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                     // Move to G30 position
                     var id = "tp" + this.gcodeCtr++;
@@ -361,8 +361,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 // Run G38 Probe Cycle for all buttons
                 var id = "tp" + this.gcodeCtr++;
-                var gcode = "G21 G38.2 Z-100  F" + fr + "\n";
+                var gcode = "G38.2 Z-100  F" + fr + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
+                // Check to see if initial units were inch
+                if (gcodeUnit == "G20 (inch)") {
+                    var id = "tp" + this.gcodeCtr++;
+                    var gcode = "G20 \n";
+                    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                }
             }
         },
         
@@ -413,9 +420,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 // Send command to set the G30 location
                 var id = "tp" + this.gcodeCtr++;
-                var gcode = "G90 G30.1 \n";
+                var gcode = "G90 G21 G30.1 \n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
+                if (gcodeUnit == "G20 (inch)") {
+                    var id = "tp" + this.gcodeCtr++;
+                    var gcode = "G20 \n";
+                    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                }
                 // Swap selected button to run
                     $('#' + this.id + ' .btn-tplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
                     this.isRunning = false;
