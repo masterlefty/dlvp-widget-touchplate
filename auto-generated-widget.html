@@ -299,6 +299,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             if (coords.coord != this.lastCoords.coord) {
                 $('.tplate-tab2-name').text(coords.coord +" Float");
                 $('.tplate-tab3-name').text(coords.coord +" Fixed");
+                $('.tplate-notes').text(coords.coord);
                 $('#' + this.id + ' .btn-tplaterun2').text(coords.coord + " Run");
                 $('#' + this.id + ' .btn-tplaterun4').text(coords.coord + " Run");
 
@@ -901,7 +902,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <br>Sets Z-zero for current WCS.</p>
                                     <ul style="padding-left: 20px">
                                         <li>Position touch probe</li>
-                                        <li>Click "<span class = "tplate-notes">G5x</span> Run" to set WCS Z-zero</li>
+                                        <li>Click "<span class = "tplate-notes">GXX</span> Run" to set WCS Z-zero</li>
                                         <li>Click "G92 Run" to set temporary offset</li>
                                     </ul>
                                 </td>
@@ -936,16 +937,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <p>Runs from the fixed location via G30. 
+                                    <p>Runs from the fixed location via G30. Use G30 tab to define.
                                     <br>Sets Z-zero for current WCS.</p>
                                     <ul style="padding-left: 20px">
                                         <li>Click "<span class = "tplate-notes">G5x</span> Run" to set WCS Z-zero</li>
                                         <li>Click "G92 Run" to set temporary offset</li>
-                                        <li><i>Use G30 tab to define fixed location</i></li>
                                         <br>
-                                        <li><b>Warning:</b> G30 settings are <u>not</u> persistent!
-                                        <br>  G30 must be defined on each startup via the 'G30 tab', 
-                                              a macro, or G-code addition.</li>
+                                        <li><b>Warning:</b> G30 settings are <u>not</u> persistent!</li>
                                     </ul>
                                 </td>
                                 <td class = "td-1R">
@@ -995,6 +993,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                 <td class = "td-1R">
                                     <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-tplaterun6" style="width:100%;">Define G30</button></p>
                                     <p><b>Note:</b> G30 must be defined and run under the Machine base units [mm]</p>
+                                    <p>G30 must be defined on each startup via either the 'G30 tab', 
+                                       a macro, or G-code addition.</p>
                                 </td>
                             </tr>
                         </tbody>

@@ -232,6 +232,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             if (coords.coord != this.lastCoords.coord) {
                 $('.tplate-tab2-name').text(coords.coord +" Float");
                 $('.tplate-tab3-name').text(coords.coord +" Fixed");
+                $('.tplate-notes').text(coords.coord);
                 $('#' + this.id + ' .btn-tplaterun2').text(coords.coord + " Run");
                 $('#' + this.id + ' .btn-tplaterun4').text(coords.coord + " Run");
 
