@@ -171,7 +171,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
         foreignSubscribe: {
             '/com-chilipeppr-interface-cnccontroller/coords': " Track which is coordinate system is active: G54, G55, etc. The value is {coord:\"g55\", coordNum: 55} or for G92 {coord:\"g92\", coordNum: 92} or for machine {coord:\"g53\", coordNum: 53}",
             '/com-chilipeppr-interface-cnccontroller/units': 'Track which unit mode is active. The value is normalized as {units: \"mm\"} or {units: \"inch\"}',
-            //'/com-chilipeppr-widget-3dviewer/unitsChanged': 'We need to know which units the Gcode is utilizing.'
         },
         /**
          * All widgets should have an init method. It should be run by the
@@ -349,7 +348,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                  * and present them back to WCS coordinates.  Break the Z move into a
                  * separate step
                  */
-                if (runCode == "run4" || "run5") {
+                if (runCode == "run4") {  //removed run5
                     console.log("runcode 4 was triggered", runCode);
                     // Raise head to clearance height
                     var id = "tp" + this.gcodeCtr++;
