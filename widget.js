@@ -312,7 +312,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     $('#' + this.id + ' .btn-tplaterun1').removeClass("btn-danger").text("Run WCS");
                     this.isRunning = false;
                 
-                } else if (runCode == "run2" || "run4") {
+                } else if (runCode == "run2" || runCode == "run4") {
                     // Run G5x (MCS) button
                     $('#' + this.id + ' .btn-tplate' + runCode).removeClass("btn-danger").text(gCoord + " Run");
                     this.isRunning = false;
@@ -348,7 +348,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                  * and present them back to WCS coordinates.  Break the Z move into a
                  * separate step
                  */
-                if (runCode == "run4") {  //removed run5
+                if (runCode == "run4" || runCode == "run5") {
                     console.log("runcode 4 was triggered", runCode);
                     // Raise head to clearance height
                     var id = "tp" + this.gcodeCtr++;
