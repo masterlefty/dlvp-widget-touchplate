@@ -403,6 +403,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 var fr = $('#' + this.id + ' .frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
+                console.log("run code is:", runCode);
+                
                 // Start watch for circuit closing, subscribe to recvline
                 this.watchForProbeStart();
                
@@ -415,6 +417,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                  * separate step
                  */
                 if (runCode == "run4" || "run5") {
+                    console.log("runcode 4 was triggered", runCode);
                     // Raise head to clearance height
                     var id = "tp" + this.gcodeCtr++;
                     var gcode = "G91 G0 Z" + zclr + "\n";
