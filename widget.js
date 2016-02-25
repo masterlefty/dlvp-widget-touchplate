@@ -644,24 +644,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("just evaled options: ", options);
             }
             else {
-                if (gcodeUnit == "G21 (mm)") {
-                    options = {
-                        showBody: true,
-                        tabShowing: 2,
-                        frprobe: 25,
-                        htplate: 1.75,
-                        zclear: 10
-                    };
-                } else 
-                {
-                    options = {
-                        showBody: true,
-                        tabShowing: 2,
-                        frprobe: 1,
-                        htplate: 0.0625,
-                        zclear: 0.5
-                    };
-                }
+                options = {
+                    showBody: true,
+                    tabShowing: 2,
+                    frprobe: 25,
+                    htplate: 1.75,
+                    zclear: 10
+                };
             }
 
             this.options = options;
