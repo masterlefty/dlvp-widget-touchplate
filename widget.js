@@ -335,7 +335,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('.frprobe').val();
+                //var fr = $('.frprobe').val();
+                var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
                 var zclr = $('.zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -501,7 +502,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
-            var plth = $('.htplate').val();
+            // var plth = $('.htplate').val();
+            var plth = $('#' + this.id + '.htplate-' + runCode).val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
@@ -667,7 +669,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('.frprobe').val(this.options.frprobe);
+            //$('.frprobe').val(this.options.frprobe);
+            $('#' + this.is + '.frprobe-' + transferCode).val(this.options.frprobe);
             $('.htplate').val(this.options.htplate);
             $('.zclear').val(this.options.zclear);
             
@@ -688,9 +691,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            this.options.frprobe = $('.frprobe').val();
+            //this.options.frprobe = $('.frprobe').val();
+            this.options.frprobe = $('#' + this.is + '.frprobe-' + transferCode).val();
             this.options.htplate = $('.htplate').val();
-            this.options.zclear =  $('.zclear').val();
+            this.options.zclear =  $('.zclear3').val();
 
             var options = this.options;
 
