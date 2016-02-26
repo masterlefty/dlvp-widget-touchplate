@@ -716,10 +716,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.options.frprobe = $('.frprobe-run2').val();
                 this.options.htplate = $('.htplate-run2').val();
             }
-            else {
-                this.options.frprobe = $('.frprobe-run3').val();
-                this.options.htplate = $('.htplate-run3').val();
-            }
+            
+            this.options.frprobe = $('.frprobe-run3').val();
+            this.options.htplate = $('.htplate-run3').val();
             this.options.zclear = $('.zclear').val();
             this.options.tabShowing = tabShow;
 
