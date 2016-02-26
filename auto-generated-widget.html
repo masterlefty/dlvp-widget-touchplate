@@ -66,7 +66,7 @@
     <script type='text/javascript'>
     //<![CDATA[
 /* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum 
-   zoffset gcodeUnit tabShowing */
+   zoffset gcodeUnit tabShow */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -696,7 +696,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * saveOptionsLocalStorage()
          */
         options: null,
-        tabShowing: 2,
+        tabShow: null,
         /**
          * Call this method on init to setup the UI by reading the user's
          * stored settings from localStorage and then adjust the UI to reflect
@@ -710,50 +710,52 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // key we're safe that this will be unique.
 
             var options = localStorage.getItem(this.id + '-options');
-             if (options) {
-                 options = $.parseJSON(options);
-                 console.log("just evaled options: ", options);
-             }
-             else {
-                 options = {
+            if (options) {
+                options = $.parseJSON(options);
+                console.log("just evaled options: ", options);
+            }
+            else {
+                options = {
                     showBody: true,
                     tabShowing: 2,
                     frprobe: 25,
                     htplate: 1.75,
                     zclear: 10
-                 };
-             }
+                };
+            }
             
-             this.options = options;
-             console.log("options:", options);
+            tabShow = options.tabShowing;
             
-             // show/hide body	
-             if (options.showBody) {
-                 this.showBody();
-             }
-             else {
-                 this.hideBody();
-             }
+            this.options = options;
+            console.log("options:", options);
             
-             //setup text boxes	
-             if (tabShowing == "1") {
-                 $('.frprobe-run1').val(this.options.frprobe);
-                 $('.htplate-run1').val(this.options.htplate);
-             }
-             else if (tabShowing == "2") {
-                 $('.frprobe-run2').val(this.options.frprobe);
-                 $('.htplate-run2').val(this.options.htplate);
-             }
-             else {
-                 $('.frprobe-run3').val(this.options.frprobe);
-                 $('.htplate-run3').val(this.options.htplate);
-             }
-             $('.zclear').val(this.options.zclear);
+            // show/hide body	
+            if (options.showBody) {
+                this.showBody();
+            }
+            else {
+                this.hideBody();
+            }
             
-             // attach onchange	
-             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));	
-
-        },
+            //setup text boxes	
+            if (tabShow == "1") {
+                $('.frprobe-run1').val(this.options.frprobe);
+                $('.htplate-run1').val(this.options.htplate);
+            }
+            else if (tabShow == "2") {
+                $('.frprobe-run2').val(this.options.frprobe);
+                $('.htplate-run2').val(this.options.htplate);
+            }
+            else {
+                $('.frprobe-run3').val(this.options.frprobe);
+                $('.htplate-run3').val(this.options.htplate);
+            }
+            $('.zclear').val(this.options.zclear);
+            
+            // attach onchange	
+            $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
+            
+            },
         /**
          * When a user changes a value that is stored as an option setting, you
          * should call this method immediately so that on next load the value
@@ -766,11 +768,11 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val(); works on tab1
-            if (tabShowing == "1") {
+            if (tabShow == "1") {
                 this.options.frprobe = $('.frprobe-run1').val();
                 this.options.htplate = $('.htplate-run1').val();
             }
-            else if (tabShowing == "2") {
+            else if (tabShow == "2") {
                 this.options.frprobe = $('.frprobe-run2').val();
                 this.options.htplate = $('.htplate-run2').val();
             }
