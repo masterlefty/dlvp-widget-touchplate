@@ -335,7 +335,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#com-chilipeppr-dlvp-widget-touchplate .frprobe').val();
+                var fr = $('#c' + this.id + '.frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -667,9 +667,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#' + this.id + '-tab2 .frprobe').val(this.options.frprobe);
-            $('#' + this.id + '-tab2 .htplate').val(this.options.htplate);
-            $('#' + this.id + '-tab3 .zclear').val(this.options.zclear);
+            $('#' + this.id + '.frprobe').val(this.options.frprobe);
+            $('#' + this.id + '.htplate').val(this.options.htplate);
+            $('#' + this.id + '.zclear').val(this.options.zclear);
             
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
@@ -694,7 +694,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             var optionsStr = JSON.stringify(options);
             console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
-            localStorage.setItem(this.id + '-options', optionsStr);
+            localStorage.setItem('com-chilipeppr-dlvp-widget-touchplate-options', optionsStr);
         },
         /**
          * Show the body of the panel.
