@@ -650,14 +650,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else {
                 options = {
                     showBody: true,
-                    //tabShowing: 0,
+                    tabShowing: 'tab2',
                     frprobe: 25,
                     htplate: 1.75,
                     zclear: 10
                 };
             }
             
-            tabShow = "tab2";
+            tabShow = options.tabShowing;
              $('a[role="tab"]').on('shown.bs.tab', function(e) {
                  tabShow = e.target.id;
                  console.log("The active tab is: ", tabShow);
@@ -721,6 +721,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.options.htplate = $('.htplate-run3').val();
             }
             this.options.zclear = $('.zclear').val();
+            this.options.tabShowing = tabShow;
 
             var options = this.options;
 
