@@ -740,10 +740,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.hideBody();
             }
             
-            $('.frprobe-run1').val = $('.frprobe-run2').val;
-            $('.frprobe-run3').val = $('.frprobe-run2').val;
-
-            
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
             //$('.frprobe-run1').val(this.options.frprobe1);
@@ -753,6 +749,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             $('.htplate-run2').val(this.options.htplate2);
             $('.htplate-run3').val(this.options.htplate3);
             $('.zclear').val(this.options.zclear);
+            
+            $('.frprobe-run1').val = $('.frprobe-run2').val;
+            $('.frprobe-run3').val = $('.frprobe-run2').val;
             
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
