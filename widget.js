@@ -651,9 +651,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 options = {
                     showBody: true,
                     tabShowing: 2,
-                    //frprobe1: 25,
+                    frprobe1: 25,
                     frprobe2: 25,
-                    //frprobe3: 25,
+                    frprobe3: 25,
                     htplate: 1.75,
                     htplate1: 1.75,
                     htplate2: 1.75,
@@ -675,16 +675,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
-            $('.frprobe-run1').val(this.options.frprobe2);
+            $('.frprobe-run1').val(this.options.frprobe1);
             $('.frprobe-run2').val(this.options.frprobe2);
-            $('.frprobe-run3').val(this.options.frprobe2);
+            $('.frprobe-run3').val(this.options.frprobe3);
             $('.htplate-run1').val(this.options.htplate1);
             $('.htplate-run2').val(this.options.htplate2);
             $('.htplate-run3').val(this.options.htplate3);
             $('.zclear').val(this.options.zclear);
             
-            $('.frprobe-run1').val = $('.frprobe-run2').val;
-            $('.frprobe-run3').val = $('.frprobe-run2').val;
             
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
@@ -705,9 +703,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val(); works on tab1
-            //this.options.frprobe1 = $('.frprobe-run1').val();
+            this.options.frprobe1 = $('.frprobe-run1').val();
             this.options.frprobe2 = $('.frprobe-run2').val();
-            //this.options.frprobe3 = $('.frprobe-run3').val();
+            this.options.frprobe3 = $('.frprobe-run3').val();
             this.options.htplate1 = $('.htplate-run1').val();
             this.options.htplate2 = $('.htplate-run2').val();
             this.options.htplate3 = $('.htplate-run3').val();
