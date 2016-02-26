@@ -629,7 +629,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * saveOptionsLocalStorage()
          */
         options: null,
-        tabShowing: null,
+        tabShowing: 2,
         /**
          * Call this method on init to setup the UI by reading the user's
          * stored settings from localStorage and then adjust the UI to reflect
