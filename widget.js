@@ -335,7 +335,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val();
+                var fr = $('#' + this.id + '.frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -501,7 +501,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
-            var plth = $('#' + this.id + ' .htplate2').val();
+            var plth = $('#' + this.id + ' .htplate').val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
@@ -667,7 +667,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val(this.options.frprobe);
+            $('#' + this.id + '.frprobe').val(this.options.frprobe);
             $('#' + this.id + '.htplate').val(this.options.htplate);
             $('#' + this.id + '.zclear').val(this.options.zclear);
             
@@ -685,8 +685,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            this.options.frprobe = $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val();
-            this.options.htplate2 = $('#' + this.id + '.htplate2').val();
+            this.options.frprobe = $('#' + this.id + '.frprobe').val();
+            this.options.htplate = $('#' + this.id + '.htplate').val();
             this.options.zclear =  $('#' + this.id + '.zclear').val();
 
             var options = this.options;
