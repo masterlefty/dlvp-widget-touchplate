@@ -674,6 +674,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
             console.log("options:", options);
+            
+            var element = document.querySelector(".frprobe");
+            console.log("querySelector:", element);
         },
         /**
          * When a user changes a value that is stored as an option setting, you

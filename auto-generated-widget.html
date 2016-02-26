@@ -741,6 +741,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
             console.log("options:", options);
+            
+            var element = document.querySelector(".frprobe");
+            console.log("querySelector:", element);
         },
         /**
          * When a user changes a value that is stored as an option setting, you
@@ -861,7 +864,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3D</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
