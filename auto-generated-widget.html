@@ -402,7 +402,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#' + this.id + '.frprobe2').val();
+                var fr = $('#' + this.id + '.frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -568,7 +568,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
-            var plth = $('#' + this.id + ' .htplate2').val();
+            var plth = $('#' + this.id + ' .htplate').val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
@@ -716,8 +716,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 options = {
                     showBody: true,
                     tabShowing: 2,
-                    frprobe2: 25,
-                    htplate2: 1.75,
+                    frprobe: 25,
+                    htplate: 1.75,
                     zclear: 10
                 };
             }
@@ -734,8 +734,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#' + this.id + '.frprobe2').val(this.options.frprobe2);
-            $('#' + this.id + '.htplate2').val(this.options.htplate2);
+            $('#' + this.id + '.frprobe').val(this.options.frprobe);
+            $('#' + this.id + '.htplate').val(this.options.htplate);
             $('#' + this.id + '.zclear').val(this.options.zclear);
             
             // on change attach new values
@@ -752,8 +752,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            this.options.frprobe2 = $('#' + this.id + '.frprobe2').val();
-            this.options.htplate2 = $('#' + this.id + '.htplate2').val();
+            this.options.frprobe = $('#' + this.id + '.frprobe').val();
+            this.options.htplate = $('#' + this.id + '.htplate').val();
             this.options.zclear =  $('#' + this.id + '.zclear').val();
 
             var options = this.options;
@@ -861,7 +861,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3B</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
@@ -938,14 +938,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <p></p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
-                                        <input class="form-control input-sm frprobe2" type="number" min="0" placeholder="0.00" value="25" />
+                                        <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
                                         <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
-                                            <input class="form-control input-sm htplate2" type="number" min="0" placeholder="0.00" value="1.75" />
+                                            <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
                                             <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
