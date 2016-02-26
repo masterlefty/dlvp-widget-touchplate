@@ -668,11 +668,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.hideBody();
             }
             
-            // checking if tranfered over
-            console.log("transferCode is:", transferCode);
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
+            // $('.frprobe-' + transferCode).val(this.options.frprobe); Does not work because button has not been clicked to define transferCode
+            $('.frprobe-run1').val(this.options.frprobe);
             $('.frprobe-run2').val(this.options.frprobe);
+            $('.frprobe-run3').val(this.options.frprobe);
             $('.htplate').val(this.options.htplate);
             $('.zclear').val(this.options.zclear);
             
@@ -694,7 +695,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val();
+            this.options.frprobe = $('.frprobe-run1').val();
             this.options.frprobe = $('.frprobe-run2').val();
+            this.options.frprobe = $('.frprobe-run3').val();
             this.options.htplate = $('.htplate').val();
             this.options.zclear =  $('.zclear3').val();
 

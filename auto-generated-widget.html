@@ -735,11 +735,12 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.hideBody();
             }
             
-            // checking if tranfered over
-            console.log("transferCode is:", transferCode);
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
+            // $('.frprobe-' + transferCode).val(this.options.frprobe); Does not work because button has not been clicked to define transferCode
+            $('.frprobe-run1').val(this.options.frprobe);
             $('.frprobe-run2').val(this.options.frprobe);
+            $('.frprobe-run3').val(this.options.frprobe);
             $('.htplate').val(this.options.htplate);
             $('.zclear').val(this.options.zclear);
             
@@ -761,7 +762,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val();
+            this.options.frprobe = $('.frprobe-run1').val();
             this.options.frprobe = $('.frprobe-run2').val();
+            this.options.frprobe = $('.frprobe-run3').val();
             this.options.htplate = $('.htplate').val();
             this.options.zclear =  $('.zclear3').val();
 
@@ -910,14 +913,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <p></p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
-                                        <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
+                                        <input class="form-control input-sm frprobe-run1" type="number" min="0" placeholder="0.00" value="25" />
                                         <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
-                                            <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
+                                            <input class="form-control input-sm htplate-run1" type="number" min="0" placeholder="0.00" value="1.75" />
                                             <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
@@ -988,13 +991,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     </p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
-                                        <input class="form-control input-sm frprobe" type="number" min="0" placeholder="0.00" value="25" />
+                                        <input class="form-control input-sm frprobe-run3" type="number" min="0" placeholder="0.00" value="25" />
                                         <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
-                                            <input class="form-control input-sm htplate" type="number" min="0" placeholder="0.00" value="1.75" />
+                                            <input class="form-control input-sm htplate-run3" type="number" min="0" placeholder="0.00" value="1.75" />
                                             <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
