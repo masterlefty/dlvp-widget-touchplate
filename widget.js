@@ -668,6 +668,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.hideBody();
             }
             
+            // checking if tranfered over
             console.log("transferCode is:", transferCode);
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
