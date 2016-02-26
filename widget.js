@@ -698,6 +698,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
             localStorage.setItem('com-chilipeppr-dlvp-widget-touchplate-options', optionsStr);
+            
+            var element = document.querySelector(".frprobe");
+            console.log("querySelector:", element);
         },
         /**
          * Show the body of the panel.

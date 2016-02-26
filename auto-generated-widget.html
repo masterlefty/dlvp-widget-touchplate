@@ -765,6 +765,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
             localStorage.setItem('com-chilipeppr-dlvp-widget-touchplate-options', optionsStr);
+            
+            var element = document.querySelector(".frprobe");
+            console.log("querySelector:", element);
         },
         /**
          * Show the body of the panel.
@@ -864,7 +867,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3B</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
