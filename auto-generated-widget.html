@@ -66,7 +66,7 @@
     <script type='text/javascript'>
     //<![CDATA[
 /* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum 
-   zoffset gcodeUnit */
+   zoffset gcodeUnit tabShowing */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -696,6 +696,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * saveOptionsLocalStorage()
          */
         options: null,
+        tabShowing: null,
         /**
          * Call this method on init to setup the UI by reading the user's
          * stored settings from localStorage and then adjust the UI to reflect
@@ -708,55 +709,50 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // widgets' options. By using this.id as the prefix of the
             // key we're safe that this will be unique.
 
-            var options = localStorage.getItem('com-chilipeppr-dlvp-widget-touchplate -options');
-
-            if (options) {
-                options = $.parseJSON(options);
-                console.log("just evaled options: ", options);
-            }
-            else {
-                options = {
+            var options = localStorage.getItem(this.id + '-options');
+             if (options) {
+                 options = $.parseJSON(options);
+                 console.log("just evaled options: ", options);
+             }
+             else {
+                 options = {
                     showBody: true,
                     tabShowing: 2,
-                    frprobe1: 25,
-                    frprobe2: 25,
-                    frprobe3: 25,
+                    frprobe: 25,
                     htplate: 1.75,
-                    htplate1: 1.75,
-                    htplate2: 1.75,
-                    htplate3: 1.75,
                     zclear: 10
-                };
-            }
+                 };
+             }
+            
+             this.options = options;
+             console.log("options:", options);
+            
+             // show/hide body	
+             if (options.showBody) {
+                 this.showBody();
+             }
+             else {
+                 this.hideBody();
+             }
+            
+             //setup text boxes	
+             if (tabShowing == "1") {
+                 $('.frprobe-run1').val(this.options.frprobe);
+                 $('.htplate-run1').val(this.options.htplate);
+             }
+             else if (tabShowing == "2") {
+                 $('.frprobe-run2').val(this.options.frprobe);
+                 $('.htplate-run2').val(this.options.htplate);
+             }
+             else {
+                 $('.frprobe-run3').val(this.options.frprobe);
+                 $('.htplate-run3').val(this.options.htplate);
+             }
+             $('.zclear').val(this.options.zclear);
+            
+             // attach onchange	
+             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));	
 
-            this.options = options;
-            console.log("options:", options);
-
-            // show/hide body
-            if (options.showBody) {
-                this.showBody();
-            }
-            else {
-                this.hideBody();
-            }
-            
-            //setup textboxes
-            //$('.frprobe').val(this.options.frprobe);
-            $('.frprobe-run1').val(this.options.frprobe1);
-            $('.frprobe-run2').val(this.options.frprobe2);
-            $('.frprobe-run3').val(this.options.frprobe3);
-            $('.htplate-run1').val(this.options.htplate1);
-            $('.htplate-run2').val(this.options.htplate2);
-            $('.htplate-run3').val(this.options.htplate3);
-            $('.zclear').val(this.options.zclear);
-            
-            
-            // on change attach new values
-            $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
-            console.log("options:", options);
-            
-            var element = document.querySelector(".frprobe");
-            console.log("querySelector:", element);
         },
         /**
          * When a user changes a value that is stored as an option setting, you
@@ -770,13 +766,19 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val(); works on tab1
-            this.options.frprobe1 = $('.frprobe-run1').val();
-            this.options.frprobe2 = $('.frprobe-run2').val();
-            this.options.frprobe3 = $('.frprobe-run3').val();
-            this.options.htplate1 = $('.htplate-run1').val();
-            this.options.htplate2 = $('.htplate-run2').val();
-            this.options.htplate3 = $('.htplate-run3').val();
-            this.options.zclear =  $('.zclear3').val();
+            if (tabShowing == "1") {
+                this.options.frprobe = $('.frprobe-run1').val();
+                this.options.htplate = $('.htplate-run1').val();
+            }
+            else if (tabShowing == "2") {
+                this.options.frprobe = $('.frprobe-run2').val();
+                this.options.htplate = $('.htplate-run2').val();
+            }
+            else {
+                this.options.frprobe = $('.frprobe-run3').val();
+                this.options.htplate = $('.htplate-run3').val();
+            }
+            this.options.zclear = $('.zclear').val();
 
             var options = this.options;
 
