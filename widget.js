@@ -187,7 +187,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // load audio
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
             
-            
+            // issue a resize a bit later
+            // issue resize event so other widgets can reflow
+            $(window).trigger('resize');
+
             /**
              * Setup Run Buttons
              * Each tab has buttons to run the various touchplate configurations
@@ -332,7 +335,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#' + this.id + ' .frprobe').val();
+                var fr = $('#com-chilipeppr-dlvp-widget-touchplate .frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -356,21 +359,21 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                     // Move to G30 position
                     var id = "tp" + this.gcodeCtr++;
-                    var gcode = "G90 G30 \n";
+                    var gcode = "G90 G21 G30 \n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                    
+                    // Check to see if initial units were inch
+                    if (gcodeUnit == "G20 (inch)") {
+                        var id = "tp" + this.gcodeCtr++;
+                        var gcode = "G20 \n";
+                        chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                    }
                 }
                 
-                // Run G38 Probe Cycle for all buttons
+                // Run G38.2 Probe Cycle for all buttons
                 var id = "tp" + this.gcodeCtr++;
                 var gcode = "G38.2 Z-100  F" + fr + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
-                
-                // Check to see if initial units were inch
-                if (gcodeUnit == "G20 (inch)") {
-                    var id = "tp" + this.gcodeCtr++;
-                    var gcode = "G20 \n";
-                    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
-                }
             }
         },
         
@@ -504,6 +507,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
 
             console.log("probeData.z:", probeData.z);
             // Define zoffset for use in the next function
+            // probeData.z is in mm, need to check if plth is inch or mm
             var zoffset = probeData.z - plth;
 
             if (transferCode == "run1") {
@@ -535,13 +539,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // Run G92 (MCS) button for fixed touchplate - Tab 2 or 3
                 $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text("G92 Run");
                 
-                 // Set the G5x offset via G92
+                 // Set the G5x offset via temporary offset G92
                 var gcode = "G92 Z" + plth + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
             
              // Back tool off of touch plate (2mm)
+             // Need to check units, inch or mm
             var gcode = "G91 G0 Z2\n";
     		var id = "tp" + this.gcodeCtr++;
 	    	chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
