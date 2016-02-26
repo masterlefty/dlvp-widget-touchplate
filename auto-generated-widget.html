@@ -718,7 +718,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 options = {
                     showBody: true,
                     tabShowing: 2,
-                    frprobe: 25,
+                    frprobe1: 25,
+                    frprobe2: 25,
+                    frprobe3: 25,
                     htplate: 1.75,
                     zclear: 10
                 };
@@ -738,9 +740,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
             // $('.frprobe-' + transferCode).val(this.options.frprobe); Does not work because button has not been clicked to define transferCode
-            $('.frprobe-run1').val(this.options.frprobe);
-            $('.frprobe-run2').val(this.options.frprobe);
-            $('.frprobe-run3').val(this.options.frprobe);
+            $('.frprobe-run1').val(this.options.frprobe1);
+            $('.frprobe-run2').val(this.options.frprobe2);
+            $('.frprobe-run3').val(this.options.frprobe3);
             $('.htplate').val(this.options.htplate);
             $('.zclear').val(this.options.zclear);
             
@@ -761,10 +763,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            //this.options.frprobe = $('.frprobe').val();
-            this.options.frprobe = $('.frprobe-run1').val();
-            this.options.frprobe = $('.frprobe-run2').val();
-            this.options.frprobe = $('.frprobe-run3').val();
+            //this.options.frprobe = $('.frprobe').val(); works on tab1
+            this.options.frprobe1 = $('.frprobe-run1').val();
+            this.options.frprobe2 = $('.frprobe-run2').val();
+            this.options.frprobe3 = $('.frprobe-run3').val();
             this.options.htplate = $('.htplate').val();
             this.options.zclear =  $('.zclear3').val();
 
