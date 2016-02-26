@@ -640,10 +640,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // widgets' options. By using this.id as the prefix of the
             // key we're safe that this will be unique.
 
-            // Feel free to add your own keys inside the options 
-            // object for your own items
-
-            var options = localStorage.getItem(this.id + '-options');
+            var options = localStorage.getItem('com-chilipeppr-dlvp-widget-touchplate -options');
 
             if (options) {
                 options = $.parseJSON(options);
@@ -676,7 +673,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             $('#' + this.id + '.zclear').val(this.options.zclear);
             
             // on change attach new values
-            $('#' + this.id + 'input').change(this.saveOptionsLocalStorage.bind(this));
+            $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
+            console.log("options:", options);
         },
         /**
          * When a user changes a value that is stored as an option setting, you
