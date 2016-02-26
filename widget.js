@@ -335,7 +335,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#c' + this.id + '.frprobe2').val();
+                var fr = $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -649,8 +649,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 options = {
                     showBody: true,
                     tabShowing: 2,
-                    frprobe2: 25,
-                    htplate2: 1.75,
+                    frprobe: 25,
+                    htplate: 1.75,
                     zclear: 10
                 };
             }
@@ -667,8 +667,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#' + this.id + '.frprobe2').val(this.options.frprobe);
-            $('#' + this.id + '.htplate2').val(this.options.htplate);
+            $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val(this.options.frprobe);
+            $('#' + this.id + '.htplate').val(this.options.htplate);
             $('#' + this.id + '.zclear').val(this.options.zclear);
             
             // on change attach new values
@@ -685,7 +685,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            this.options.frprobe2 = $('#' + this.id + '.frprobe2').val();
+            this.options.frprobe = $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val();
             this.options.htplate2 = $('#' + this.id + '.htplate2').val();
             this.options.zclear =  $('#' + this.id + '.zclear').val();
 
