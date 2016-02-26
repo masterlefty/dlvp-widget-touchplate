@@ -335,7 +335,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#' + this.id + '.frprobe').val();
+                var fr = $('#com-chilipeppr-dlvp-widget-touchplate-tab2.frprobe').val();
                 var zclr = $('#' + this.id + ' .zclear').val();
                 
                 console.log("run code is:", runCode);
@@ -667,7 +667,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#' + this.id + '.frprobe').val(this.options.frprobe);
+            $('#com-chilipeppr-dlvp-widget-touchplate-tab2.frprobe').val(this.options.frprobe);
             $('#' + this.id + '.htplate').val(this.options.htplate);
             $('#' + this.id + '.zclear').val(this.options.zclear);
             
@@ -685,7 +685,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            this.options.frprobe = $('#' + this.id + '.frprobe').val();
+            this.options.frprobe = $('#com-chilipeppr-dlvp-widget-touchplate-tab2.frprobe').val();
             this.options.htplate = $('#' + this.id + '.htplate').val();
             this.options.zclear =  $('#' + this.id + '.zclear').val();
 
