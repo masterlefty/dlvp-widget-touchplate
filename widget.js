@@ -651,9 +651,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 options = {
                     showBody: true,
                     tabShowing: 2,
-                    frprobe1: 25,
+                    //frprobe1: 25,
                     frprobe2: 25,
-                    frprobe3: 25,
+                    //frprobe3: 25,
                     htplate: 1.75,
                     htplate1: 1.75,
                     htplate2: 1.75,
