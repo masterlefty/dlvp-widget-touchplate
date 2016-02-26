@@ -688,9 +688,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // along with some of the normal stuff like showBody
             
             // retrieve input vals
-            this.options.frprobe = $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val();
-            this.options.htplate = $('#' + this.id + '.htplate').val();
-            this.options.zclear =  $('#' + this.id + '.zclear').val();
+            this.options.frprobe = $('.frprobe').val();
+            this.options.htplate = $('.htplate').val();
+            this.options.zclear =  $('.zclear').val();
 
             var options = this.options;
 
@@ -699,8 +699,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // store settings to localStorage
             localStorage.setItem('com-chilipeppr-dlvp-widget-touchplate-options', optionsStr);
             
-            var element = document.querySelector(".frprobe");
-            console.log("querySelector:", element);
+            
         },
         /**
          * Show the body of the panel.
