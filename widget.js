@@ -686,7 +686,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else {
                 $('.frprobe-run3').val(this.options.frprobe);
                 $('.htplate-run3').val(this.options.htplate);
-                $('.zclear').val(this.options.zclear);
+                $('.zclear-run3').val(this.options.zclear);
             }
             
             
@@ -717,7 +717,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else {
             this.options.frprobe = $('.frprobe-run3').val();
             this.options.htplate = $('.htplate-run3').val();
-            this.options.zclear = $('.zclear').val();
+            this.options.zclear = $('.zclear-run3').val();
             }
             
             this.options.tabShowing = tabShow;
