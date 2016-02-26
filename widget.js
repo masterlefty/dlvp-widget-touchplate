@@ -658,6 +658,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             tabShow = options.tabShowing;
+            console.log("tabShow is: ", tabShow);
             
             this.options = options;
             console.log("options:", options);
