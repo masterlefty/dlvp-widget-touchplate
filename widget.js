@@ -335,8 +335,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                var fr = $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val();
-                var zclr = $('#' + this.id + ' .zclear').val();
+                var fr = $('.frprobe').val();
+                var zclr = $('.zclear').val();
                 
                 console.log("run code is:", runCode);
                 
@@ -501,7 +501,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
-            var plth = $('#' + this.id + ' .htplate').val();
+            var plth = $('.htplate').val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
@@ -667,9 +667,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#com-chilipeppr-dlvp-widget-touchplate.frprobe').val(this.options.frprobe);
-            $('#' + this.id + '.htplate').val(this.options.htplate);
-            $('#' + this.id + '.zclear').val(this.options.zclear);
+            $('.frprobe').val(this.options.frprobe);
+            $('.htplate').val(this.options.htplate);
+            $('.zclear').val(this.options.zclear);
             
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
