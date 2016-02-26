@@ -641,7 +641,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // key specific to this widget so as not to overwrite other
             // widgets' options. By using this.id as the prefix of the
             // key we're safe that this will be unique.
-
+ 
             var options = localStorage.getItem(this.id + '-options');
             if (options) {
                 options = $.parseJSON(options);
@@ -650,13 +650,19 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else {
                 options = {
                     showBody: true,
-                    tabShowing: 2,
+                    tabShowing: null,
                     frprobe: 25,
                     htplate: 1.75,
                     zclear: 10
                 };
             }
             
+            var showTab = null;
+             $('a[role="tab"]').on('shown.bs.tab', function(e) {
+                 showTab = e.target.id;
+                 console.log("The active tab is: ", showTab);
+             });
+
             tabShow = options.tabShowing;
             console.log("tabShow is: ", tabShow);
             
@@ -672,11 +678,11 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup text boxes	
-            if (tabShow == "1") {
+            if (tabShow == "tab1") {
                 $('.frprobe-run1').val(this.options.frprobe);
                 $('.htplate-run1').val(this.options.htplate);
             }
-            else if (tabShow == "2") {
+            else if (tabShow == "tab2") {
                 $('.frprobe-run2').val(this.options.frprobe);
                 $('.htplate-run2').val(this.options.htplate);
             }
@@ -702,11 +708,11 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val(); works on tab1
-            if (tabShow == "1") {
+            if (tabShow == "tab1") {
                 this.options.frprobe = $('.frprobe-run1').val();
                 this.options.htplate = $('.htplate-run1').val();
             }
-            else if (tabShow == "2") {
+            else if (tabShow == "tab2") {
                 this.options.frprobe = $('.frprobe-run2').val();
                 this.options.htplate = $('.htplate-run2').val();
             }
