@@ -670,7 +670,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             //setup textboxes
             //$('.frprobe').val(this.options.frprobe);
-            $('#' + this.is + '.frprobe-' + transferCode).val(this.options.frprobe);
+            $('.frprobe-' + transferCode).val(this.options.frprobe);
             $('.htplate').val(this.options.htplate);
             $('.zclear').val(this.options.zclear);
             
@@ -692,7 +692,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val();
-            this.options.frprobe = $('#' + this.is + '.frprobe-' + transferCode).val();
+            this.options.frprobe = $('.frprobe-' + transferCode).val();
             this.options.htplate = $('.htplate').val();
             this.options.zclear =  $('.zclear3').val();
 
