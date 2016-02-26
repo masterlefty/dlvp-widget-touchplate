@@ -629,7 +629,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * saveOptionsLocalStorage()
          */
         options: null,
-        tabShow: null,
+        tabShow: 'tab2',
         /**
          * Call this method on init to setup the UI by reading the user's
          * stored settings from localStorage and then adjust the UI to reflect
@@ -657,7 +657,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 };
             }
             
-            tabShow = options.tabShowing;
              $('a[role="tab"]').on('shown.bs.tab', function(e) {
                  tabShow = e.target.id;
                  console.log("The active tab is: ", tabShow);
