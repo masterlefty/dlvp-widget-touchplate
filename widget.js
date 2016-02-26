@@ -616,7 +616,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // resubscribe
                 console.log("activateWidget. resubscribing.");
                 this.isHidden = false;
-                this.introAnim();
             }
             // issue resize event so other widgets can reflow
             $(window).trigger('resize');
@@ -668,9 +667,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             //setup textboxes
-            $('#' + this.id + '.frprobe').val(this.options.frprobe);
-            $('#' + this.id + '.htplate').val(this.options.htplate);
-            $('#' + this.id + '.zclear').val(this.options.zclear);
+            $('#' + this.id + '-tab2 .frprobe').val(this.options.frprobe);
+            $('#' + this.id + '-tab2 .htplate').val(this.options.htplate);
+            $('#' + this.id + '-tab3 .zclear').val(this.options.zclear);
             
             // on change attach new values
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
