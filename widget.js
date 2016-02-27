@@ -495,6 +495,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // probeData should be of the format
             // {"e":1,"z":-7.844}
             console.log("afterProbeDone. probeData:", probeData);
+            console.log("Transfer Code is: ", transferCode);
             
             // unsub so we stop getting events
             this.watchForProbeEnd();
@@ -507,8 +508,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
             // var plth = $('.htplate').val();
-            //var plth = $('#' + this.id + '.htplate-' + transferCode).val();
-            var plth = $('#' + this.id + ' .htplate').val();
+            var plth = $('#' + this.id + ' .htplate-' + transferCode).val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
