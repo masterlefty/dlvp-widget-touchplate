@@ -507,7 +507,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
             // var plth = $('.htplate').val();
-            var plth = $('#' + this.id + '.htplate-' + transferCode).val();
+            //var plth = $('#' + this.id + '.htplate-' + transferCode).val();
+            var plth = $('#' + this.id + ' .htplate').val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
