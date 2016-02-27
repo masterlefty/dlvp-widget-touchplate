@@ -503,7 +503,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
             // var plth = $('.htplate').val();
-            var plth = $('#' + this.id + '.htplate-' + runCode).val();
+            var plth = $('#' + this.id + '.htplate-' + transferCode).val();
             if (isNaN(plth)) plth = 0;
                 console.log("heightPlate:", plth);
 
@@ -676,15 +676,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             //setup text boxes	
             if (tabShow == "tab1") {
-                $('.frprobe-run1').val(this.options.frprobe);
+                $('#' + this.id + ' .frprobe-run1').val(this.options.frprobe);
                 $('.htplate-run1').val(this.options.htplate);
             }
             else if (tabShow == "tab2") {
-                $('.frprobe-run2').val(this.options.frprobe);
+                $('#' + this.id + ' .frprobe-run2').val(this.options.frprobe);
                 $('.htplate-run2').val(this.options.htplate);
             }
             else {
-                $('.frprobe-run3').val(this.options.frprobe);
+                $('#' + this.id + ' .frprobe-run3').val(this.options.frprobe);
                 $('.htplate-run3').val(this.options.htplate);
                 $('.zclear-run3').val(this.options.zclear);
             }
@@ -707,15 +707,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val(); works on tab1
             if (tabShow == "tab1") {
-                this.options.frprobe = $('.frprobe-run1').val();
+                this.options.frprobe = $('#' + this.id + ' .frprobe-run1').val();
                 this.options.htplate = $('.htplate-run1').val();
             }
             else if (tabShow == "tab2") {
-                this.options.frprobe = $('.frprobe-run2').val();
+                this.options.frprobe = $('#' + this.id + ' .frprobe-run2').val();
                 this.options.htplate = $('.htplate-run2').val();
             }
             else {
-            this.options.frprobe = $('.frprobe-run3').val();
+            this.options.frprobe = $('#' + this.id + ' .frprobe-run3').val();
             this.options.htplate = $('.htplate-run3').val();
             this.options.zclear = $('.zclear-run3').val();
             }
