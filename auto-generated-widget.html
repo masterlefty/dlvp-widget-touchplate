@@ -565,7 +565,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.audio.play();
             
             // Stop controller upon completion of probing cycle
-            // Cycle stop and swap buttons to run
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
@@ -575,10 +574,26 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("heightPlate:", plth);
 
             console.log("probeData.z:", probeData.z);
-            // Define zoffset for use in the next function
-            // probeData.z is in mm, need to check if plth is inch or mm
-            var zoffset = probeData.z - plth;
-
+            
+            /**
+             * Define zoffset for use in the next function
+             * Probe command runs under machine base units [mm]
+             * probeData.z is always based in mm
+             * Need to check initial Unit definition and if is
+             * G20 [inch], then convert probeData.z to inch
+             * If Unit is G21 (mm), then no conversion is required
+             */ 
+            if (gcodeUnit == "G20 (inch)") {
+                var zoffset = (probeData.z / 25.4) - plth;
+                console.log("zoffset in inch: ", zoffset);
+            }
+            else {
+                var zoffset = probeData.z - plth;
+                console.log("zoffset in mm: ", zoffset);
+            }
+            
+            // Cycle stop and swap buttons to run
+            // Set Machine coordinate offsets
             if (transferCode == "run1") {
                 // Run WCS (G53) button - Tab 1
                 $('#' + this.id + ' .btn-tplaterun1').removeClass("btn-danger").text("Run WCS");
@@ -589,8 +604,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
-            
-            else if (transferCode == "run2" || "run4") {
+            else if (transferCode == "run2" || transferCode == "run4") {
                 // Run G5x (MCS) button for floating touchplate - Tab 2 or 3
                 $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text(gCoord + " Run");
                 
@@ -614,12 +628,21 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
             
-             // Back tool off of touch plate (2mm)
-             // Need to check units, inch or mm
-            var gcode = "G91 G0 Z2\n";
-    		var id = "tp" + this.gcodeCtr++;
-	    	chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
-	    	
+             // Back tool off of touch plate
+            // Need to check units, inch or mm
+            if (gcodeUnit = "G20 (inch)") {
+                var gcode = "G91 G0 Z0.1\n";
+    		    var id = "tp" + this.gcodeCtr++;
+	    	    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+	    	    console.log("backoff in inch: ", gcode);
+            }
+            else {
+                var gcode = "G91 G0 Z2\n";
+    		    var id = "tp" + this.gcodeCtr++;
+	    	    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+	    	    console.log("backoff in mm: ", gcode);
+            }
+
 	    	// return to absolute coordinate system
     		var gcode = "G90\n";
 	    	var id = "tp" + this.gcodeCtr++;
@@ -744,16 +767,16 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             //setup text boxes	
             if (tabShow == "tab1") {
                 $('#' + this.id + ' .frprobe-run1').val(this.options.frprobe);
-                $('.htplate-run1').val(this.options.htplate);
+                $('#' + this.id + ' .htplate-run1').val(this.options.htplate);
             }
             else if (tabShow == "tab2") {
                 $('#' + this.id + ' .frprobe-run2').val(this.options.frprobe);
-                $('.htplate-run2').val(this.options.htplate);
+                $('#' + this.id + ' .htplate-run2').val(this.options.htplate);
             }
             else {
                 $('#' + this.id + ' .frprobe-run3').val(this.options.frprobe);
-                $('.htplate-run3').val(this.options.htplate);
-                $('.zclear-run3').val(this.options.zclear);
+                $('#' + this.id + ' .htplate-run3').val(this.options.htplate);
+                $('#' + this.id + ' .zclear-run3').val(this.options.zclear);
             }
             
             
@@ -775,16 +798,16 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             //this.options.frprobe = $('.frprobe').val(); works on tab1
             if (tabShow == "tab1") {
                 this.options.frprobe = $('#' + this.id + ' .frprobe-run1').val();
-                this.options.htplate = $('.htplate-run1').val();
+                this.options.htplate = $('#' + this.id + ' .htplate-run1').val();
             }
             else if (tabShow == "tab2") {
                 this.options.frprobe = $('#' + this.id + ' .frprobe-run2').val();
-                this.options.htplate = $('.htplate-run2').val();
+                this.options.htplate = $('#' + this.id + ' .htplate-run2').val();
             }
             else {
             this.options.frprobe = $('#' + this.id + ' .frprobe-run3').val();
-            this.options.htplate = $('.htplate-run3').val();
-            this.options.zclear = $('.zclear-run3').val();
+            this.options.htplate = $('#' + this.id + ' .htplate-run3').val();
+            this.options.zclear = $('#' + this.id + ' .zclear-run3').val();
             }
             
             this.options.tabShowing = tabShow;
