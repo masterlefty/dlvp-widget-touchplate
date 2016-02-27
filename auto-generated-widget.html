@@ -496,11 +496,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 var gcode = "G90 G21 G30.1 \n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
-                if (gcodeUnit == "G20 (inch)") {
-                    var id = "tp" + this.gcodeCtr++;
-                    var gcode = "G20 \n";
-                    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
-                }
+                var id = "tp" + this.gcodeCtr++;
+                var gcode = gcodeUnit + "\n";
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                
+                //if (gcodeUnit == "G20 (inch)") {
+                //    var id = "tp" + this.gcodeCtr++;
+                //    var gcode = "G20 \n";
+                //    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
+                //}
                 // Swap selected button to run
                     $('#' + this.id + ' .btn-tplaterun6').removeClass("btn-danger").text("G30 Fixed Location");
                     this.isRunning = false;
@@ -584,7 +588,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
              * G20 [inch], then convert probeData.z to inch
              * If Unit is G21 (mm), then no conversion is required
              */ 
-            if (gcodeUnit == "G20 (inch)") {
+            if (gcodeUnit = "G20 (inch)") {
                 var zoffset = (probeData.z / 25.4) - plth;
                 console.log("zoffset in inch: ", zoffset);
             }
