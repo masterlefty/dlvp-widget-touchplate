@@ -268,6 +268,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             } else {
                 gcodeUnit = "G20 (inch)";
             }
+            console.log("gcodeUnit is: ", gcodeUnit);
         },
         
         
