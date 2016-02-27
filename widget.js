@@ -513,6 +513,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("heightPlate:", plth);
 
             console.log("probeData.z:", probeData.z);
+            console.log("the gcodeUnit value is: ", gcodeUnit);
             
             /**
              * Define zoffset for use in the next function
@@ -522,7 +523,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
              * G20 [inch], then convert probeData.z to inch
              * If Unit is G21 (mm), then no conversion is required
              */ 
-            if (gcodeUnit = "G20 (inch)") {
+            if (gcodeUnit == "G20 (inch)") {
                 var zoffset = (probeData.z / 25.4) - plth;
                 console.log("zoffset in inch: ", zoffset);
             }
