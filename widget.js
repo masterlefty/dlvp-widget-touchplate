@@ -336,7 +336,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                //var fr = $('.frprobe').val();
                 var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
                 var zclr = $('.zclear').val();
                 
@@ -674,7 +673,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             else {
                 options = {
-                    showBody: true,
+                    showBody: true, 
                     tabShowing: 'tab5',
                     frprobe: 25,
                     htplate: 1.75,
