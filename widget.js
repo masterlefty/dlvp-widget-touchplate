@@ -263,6 +263,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // cannot utilize runCode to define, Run Button has not been selected 
                 // ex. var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
                 // Instead must utilize tab# to update each of the various input conditions
+                /*
                 if(this.currentUnits == "mm") {
                     if (tabShow == "tab1") {
                         var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
@@ -327,7 +328,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                         $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
                     }
                 }
-
+                */
                 this.currentUnits = units;
             }
             // Store record of current unit defined in G-code file, unsubscribe
@@ -811,20 +812,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             
             // retrieve input vals
-            // Define Tab1
-            this.options.frprobe = $('#' + this.id + ' .frprobe-run1').val();
-            this.options.htplate = $('#' + this.id + ' .htplate-run1').val();
-            
-            // Define Tab2
-            this.options.frprobe = $('#' + this.id + ' .frprobe-run2').val();
-            this.options.htplate = $('#' + this.id + ' .htplate-run2').val();
-            
-            // Define Tab3
-            this.options.frprobe = $('#' + this.id + ' .frprobe-run3').val();
-            this.options.htplate = $('#' + this.id + ' .htplate-run3').val();
-            this.options.zclear  = $('#' + this.id + ' .zclear-run3' ).val();
-
-            /* This method works but keeps each tab as an independent result
             if (tabShow == "tab1") {
                 console.log("saving tab1:", tabShow);
                 this.options.frprobe = $('#' + this.id + ' .frprobe-run1').val();
@@ -841,8 +828,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.options.htplate = $('#' + this.id + ' .htplate-run3').val();
                 this.options.zclear = $('#' + this.id + ' .zclear-run3').val();
             }
-            */
-            
+
             this.options.tabShowing = tabShow;
 
             var options = this.options;
