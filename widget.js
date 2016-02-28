@@ -183,7 +183,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.btnSetup();
             this.forkSetup();
             this.isInitted = true;
-            this.options.tabShowing = "tab2";
+            //this.options.tabShowing = "tab2";
             
             // load audio
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
@@ -692,6 +692,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 };
             }
             
+            // track which tab is active to define input storage
             tabShow = 'tab2';
              $('a[role="tab"]').on('shown.bs.tab', function(e) {
                  tabShow = e.target.id;
