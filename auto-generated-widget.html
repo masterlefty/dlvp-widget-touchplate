@@ -250,6 +250,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.btnSetup();
             this.forkSetup();
             this.isInitted = true;
+            this.options.tabShowing = "tab2";
             
             // load audio
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
@@ -959,14 +960,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <p></p>
                                     <div class="" style="text-align:right;">Feedrate to Probe</div>
                                     <div class="input-group">
-                                        <input class="form-control input-sm frprobe-run1" type="number" min="0" placeholder="0.00" value="-" />
+                                        <input class="form-control input-sm frprobe-run1" type="number" min="0" placeholder="0.00" value="25" />
                                         <div class="input-group-addon tplt-dimv">mm/min</div>
                                     </div>
                                     <p></p>
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
-                                            <input class="form-control input-sm htplate-run1" type="number" min="0" placeholder="0.00" value="-" />
+                                            <input class="form-control input-sm htplate-run1" type="number" min="0" placeholder="0.00" value="1.75" />
                                             <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
@@ -1005,7 +1006,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
-                                            <input class="form-control input-sm htplate-run2" type="number" min="0" placeholder="0.00" value="1.75" />
+                                            <input class="form-control input-sm htplate-run2" type="number" min="0" placeholder="0.00" value="6.35" />
                                             <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>
@@ -1044,7 +1045,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                     <div style="" xclass="input-group">
                                         <div class="" style="text-align:right;">Height of Plate</div>
                                         <div class="input-group">
-                                            <input class="form-control input-sm htplate-run3" type="number" min="0" placeholder="0.00" value="1.75" />
+                                            <input class="form-control input-sm htplate-run3" type="number" min="0" placeholder="0.00" value="19.05" />
                                             <div class="input-group-addon tplt-dim">mm</div>
                                         </div>
                                     </div>

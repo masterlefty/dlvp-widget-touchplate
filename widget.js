@@ -183,6 +183,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.btnSetup();
             this.forkSetup();
             this.isInitted = true;
+            this.options.tabShowing = "tab2";
             
             // load audio
             this.audio = new Audio('http://chilipeppr.com/audio/beep.wav');
