@@ -675,14 +675,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else {
                 options = {
                     showBody: true,
-                    tabShowing: 'tab2',
+                    tabShowing: 'tab5',
                     frprobe: 25,
                     htplate: 1.75,
                     zclear: 10
                 };
             }
             
-            tabShow = 'tab2';
+            tabShow = 'tab5';
              $('a[role="tab"]').on('shown.bs.tab', function(e) {
                  tabShow = e.target.id;
                  console.log("The active tab is: ", tabShow);

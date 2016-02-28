@@ -742,14 +742,14 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             else {
                 options = {
                     showBody: true,
-                    tabShowing: 'tab2',
+                    tabShowing: 'tab5',
                     frprobe: 25,
                     htplate: 1.75,
                     zclear: 10
                 };
             }
             
-            tabShow = 'tab2';
+            tabShow = 'tab5';
              $('a[role="tab"]').on('shown.bs.tab', function(e) {
                  tabShow = e.target.id;
                  console.log("The active tab is: ", tabShow);
@@ -931,13 +931,13 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab3" id="tab3" role="tab" data-toggle="tab"><span class = "tplate-tab3-name">G5x Fixed</span></a></li>
                 <li><a href="#com-chilipeppr-dlvp-widget-touchplate-tab4" id="tab4" role="tab" data-toggle="tab">G30</a></li>
                 <li class="active">
-                    <a href="#com-chilipeppr-dlvp-widget-touchplate-tab5" id="tab5" role="tab" data-toggle="tab">Notes</a></li>
+                   <a href="#com-chilipeppr-dlvp-widget-touchplate-tab5" id="tab5" role="tab" data-toggle="tab">Notes</a></li>
             </ul>
             <!-- Tab panes -->
 
             <!-- Tab 1 -->
             <div class="tab-content">
-                <div class="tab-panel" id="com-chilipeppr-dlvp-widget-touchplate-tab1">
+                <div class="tab-pane" id="com-chilipeppr-dlvp-widget-touchplate-tab1">
                     <table class="table table-condensed table-bordered">
                         <tbody>
                             <tr>
