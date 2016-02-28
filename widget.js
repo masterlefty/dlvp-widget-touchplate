@@ -1,5 +1,5 @@
-/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord gCoordNum 
-   zoffset gcodeUnit tabShow */
+/* global requirejs cprequire cpdefine chilipeppr transferCode gCoord  
+   gcodeUnit tabShow */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
 // ChiliPeppr Widget/Element Javascript
@@ -239,7 +239,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplaterun4').text(coords.coord + " Run");
 
                 this.lastCoords = coords;
-                gCoordNum = coords.coordNum; //54, 55, etc
+                // Set global value for later use
                 gCoord = coords.coord; // G54, G55, etc
             }
         },
@@ -373,8 +373,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 }
                 
                 // Run G38.2 Probe Cycle for all buttons
+                // Clear any G92 offsets before staring
                 var id = "tp" + this.gcodeCtr++;
-                var gcode = "G38.2 Z-100  F" + fr + "\n";
+                var gcode = "G92.1 G38.2 Z-100  F" + fr + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
         },
@@ -485,7 +486,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
          * Depending on which button was clicked, the function will
          * set the the Z-zero for the appropriate coordinate system
          */
-        zoffet: 0,
+        zoffset: 0,
         afterProbeDone: function(probeData) {
             // probeData should be of the format
             // {"e":1,"z":-7.844}
@@ -502,11 +503,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
-            // var plth = $('.htplate').val();
             var plth = $('#' + this.id + ' .htplate-' + transferCode).val();
             if (isNaN(plth)) plth = 0;
-                console.log("heightPlate:", plth);
 
+            console.log("heightPlate:", plth);
             console.log("probeData.z:", probeData.z);
             console.log("the gcodeUnit value is: ", gcodeUnit);
             
@@ -527,24 +527,30 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 console.log("zoffset in mm: ", zoffset);
             }
             
-            // Cycle stop and swap buttons to run
-            // Set Machine coordinate offsets
+            /**
+             * The following statements check to see which button was clicked,
+             * by checking the transferCode, to determine which set of Probe
+             * commands need to be send to the controller.
+             * Step 1: cycle stope and swap the appropriate button to run status
+             */
+             
+            // This is the classic Chilipeppr touchplate
+            // Sets Machine coordinate offsets (G53) to Z-zero for button 1
             if (transferCode == "run1") {
                 // Run WCS (G53) button - Tab 1
                 $('#' + this.id + ' .btn-tplaterun1').removeClass("btn-danger").text("Run WCS");
                 
-                // Set G53 machine coordinates Z-value to zero
                 // create Gcode and send to controller
                 var gcode = "G28.3 Z" + plth + "\n";
                 var id = "tp" + this.gcodeCtr++;
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
+            // Sets the WCS (g5x) coordinate system for buttons 2 or 4
             else if (transferCode == "run2" || transferCode == "run4") {
                 // Run G5x (MCS) button for floating touchplate - Tab 2 or 3
                 $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text(gCoord + " Run");
                 
                 // Get coordNum for inclusion in G10 L2 Pn
-                //var prbCoordNum = gCoordNum;
                 var prbCoordNum = Number(this.lastCoords.coordNum);
                 
                 // create Gcode and send to controller
@@ -554,7 +560,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             
             else {
-                // Run G92 (MCS) button for fixed touchplate - Tab 2 or 3
+                // Sets the G92 offset to the WCS (g5x) coordinate system
+                // for use with a fixed touchplate
+                // for buttons 3 or 5, found on Tab 2 or 3
                 $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text("G92 Run");
                 
                  // Set the G5x offset via temporary offset G92
@@ -563,8 +571,10 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
             }
             
-             // Back tool off of touch plate
+            // Back tool off of touch plate, runs under relative coordinate move
             // Need to check units, inch or mm
+                // backoff in inches was changed from 0.1 to 0.2 due to controller 
+                // skipping execution during testing and development
             if (gcodeUnit == "G20 (inch)") {
                 var gcode = "G91 G0 Z 0.20 (backoff 0.2 inch)\n";
     		    var id = "tp" + this.gcodeCtr++;
@@ -572,7 +582,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
 	    	    console.log("backoff in inch: ", gcode);
             }
             else {
-                var gcode = "G91 G0 Z2 (backout 2mm) \n";
+                var gcode = "G91 G0 Z2 (backoff 2mm) \n";
     		    var id = "tp" + this.gcodeCtr++;
 	    	    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
 	    	    console.log("backoff in mm: ", gcode);
