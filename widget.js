@@ -566,7 +566,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
              // Back tool off of touch plate
             // Need to check units, inch or mm
             if (gcodeUnit == "G20 (inch)") {
-                var gcode = "G91 G0 Z.10 (backoff 0.1 inch)\n";
+                var gcode = "G91 G0 Z 0.20 (backoff 0.2 inch)\n";
     		    var id = "tp" + this.gcodeCtr++;
 	    	    chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
 	    	    console.log("backoff in inch: ", gcode);
