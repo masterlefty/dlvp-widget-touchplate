@@ -261,7 +261,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 // New (added 16.02.28) - convert input value to align with units
                 
-                if (units == "mm") {
+                if (this.currentUnits == "mm") {
                     var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
                     var currentPlateHt  = $('#' + this.id + ' .htplate-' + transferCode).val();
                     var currentZclear   = $('#' + this.id + ' .zclear-run3').val();
