@@ -260,30 +260,68 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('.tplt-dimv').text(units + "/min");
                 
                 // New (added 16.02.28) - convert input value to align with units
+                // cannot utilize runCode to define in 9 lines of code, 
+                // ex. var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
+                // Instead must utilize tab # to update each of the various input conditions
                 
                 if (this.currentUnits == "mm") {
-                    var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
-                    var currentPlateHt  = $('#' + this.id + ' .htplate-' + transferCode).val();
-                    var currentZclear   = $('#' + this.id + ' .zclear-run3').val();
-                    var updateFeedRate = currentFeedRate * 25.4;
-                    var updatePlateHt  = currentPlateHt * 25.4;
-                    var updateZclear   = currentZclear * 25.4;
-                    $('#' + this.id + ' .frprobe-' + transferCode).val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-' + transferCode).val(this.updatePlateHt);
-                    $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
+                    if (tabShow == 'tab1') {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run1').val();
+                        var updateFeedRate = currentFeedRate * 25.4;
+                        var updatePlateHt  = currentPlateHt * 25.4;
+                        $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
+                    }
+                    else if (tabShow == "tab2") {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
+                        var updateFeedRate = currentFeedRate * 25.4;
+                        var updatePlateHt  = currentPlateHt * 25.4;
+                        $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
+                    }
+                    else {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run3').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run3').val();
+                        var currentZclear   = $('#' + this.id + ' .zclear-run3').val();
+                        var updateFeedRate = currentFeedRate * 25.4;
+                        var updatePlateHt  = currentPlateHt * 25.4;
+                        var updateZclear   = currentZclear * 25.4;
+                        $('#' + this.id + ' .frprobe-run3').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run3').val(this.updatePlateHt);
+                        $('#' + this.id + ' .zclear-run3' ).val(this.updateZclear);
+                    }
                 }
                 else {
-                    currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
-                    currentPlateHt  = $('#' + this.id + ' .htplate-' + transferCode).val();
-                    currentZclear   = $('#' + this.id + ' .zclear-run3').val();
-                    updateFeedRate = currentFeedRate / 25.4;
-                    updatePlateHt  = currentPlateHt / 25.4;
-                    updateZclear   = currentZclear / 25.4;
-                    $('#' + this.id + ' .frprobe-' + transferCode).val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-' + transferCode).val(this.updatePlateHt);
-                    $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
+                    if (tabShow == 'tab1') {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run1').val();
+                        var updateFeedRate = currentFeedRate / 25.4;
+                        var updatePlateHt  = currentPlateHt / 25.4;
+                        $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
+                    }
+                    else if (tabShow == "tab2") {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
+                        var updateFeedRate = currentFeedRate / 25.4;
+                        var updatePlateHt  = currentPlateHt / 25.4;
+                        $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
+                    }
+                    else {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run3').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run3').val();
+                        var currentZclear   = $('#' + this.id + ' .zclear-run3').val();
+                        var updateFeedRate = currentFeedRate / 25.4;
+                        var updatePlateHt  = currentPlateHt / 25.4;
+                        var updateZclear   = currentZclear / 25.4;
+                        $('#' + this.id + ' .frprobe-run3').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run3').val(this.updatePlateHt);
+                        $('#' + this.id + ' .zclear-run3' ).val(this.updateZclear);
+                    }
                 }
-                
                 
                 this.currentUnits = units;
             }
