@@ -260,7 +260,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('.tplt-dimv').text(units + "/min");
                 
                 // New (added 16.02.28) - convert input value to align with units
-                /*
+                
                 if (units == "mm") {
                     var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
                     var currentPlateHt  = $('#' + this.id + ' .htplate-' + transferCode).val();
@@ -283,7 +283,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     $('#' + this.id + ' .htplate-' + transferCode).val(this.updatePlateHt);
                     $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
                 }
-                */
+                
                 
                 this.currentUnits = units;
             }
