@@ -264,40 +264,68 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // ex. var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
                 // Instead must utilize tab# to update each of the various input conditions
                 if(this.currentUnits == "mm") {
-                    var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
-                    var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
-                    var currentZclear   = $('#' + this.id + ' .zclear-run3' ).val();
-                    var updateFeedRate = currentFeedRate * 25.4;
-                    var updatePlateHt  = currentPlateHt * 25.4;
-                    var updateZclear   = currentZclear * 25.4;
-                    // update inputs on Tab1
-                    $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
-                    // update inputs on Tab2
-                    $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
-                    // update inputs on Tab3
-                    $('#' + this.id + ' .frprobe-run3').val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-run3').val(this.updatePlateHt);
-                    $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
+                    if (tabShow == "tab1") {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run1').val();
+                        var updateFeedRate = currentFeedRate * 25.4;
+                        var updatePlateHt  = currentPlateHt * 25.4;
+                    
+                        $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
+                    }
+                    else if (tabShow == 'tab2') {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
+                        var updateFeedRate = currentFeedRate * 25.4;
+                        var updatePlateHt  = currentPlateHt * 25.4;
+                    
+                        $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
+                    }
+                    else {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run3').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run3').val();
+                        var currentZclear   = $('#' + this.id + ' .zclear-run3' ).val();
+                        var updateFeedRate = currentFeedRate * 25.4;
+                        var updatePlateHt  = currentPlateHt * 25.4;
+                        var updateZclear   = currentZclear * 25.4;
+                    
+                        $('#' + this.id + ' .frprobe-run3').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run3').val(this.updatePlateHt);
+                        $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
+                    }
                 }
                 else {
-                    var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
-                    var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
-                    var currentZclear   = $('#' + this.id + ' .zclear-run3' ).val();
-                    var updateFeedRate = currentFeedRate / 25.4;
-                    var updatePlateHt  = currentPlateHt / 25.4;
-                    var updateZclear   = currentZclear / 25.4;
-                    // update inputs on Tab1
-                    $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
-                    // update inputs on Tab2
-                    $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
-                    // update inputs on Tab3
-                    $('#' + this.id + ' .frprobe-run3').val(this.updateFeedRate);
-                    $('#' + this.id + ' .htplate-run3').val(this.updatePlateHt);
-                    $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
+                    if (tabShow == "tab1") {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run1').val();
+                        var updateFeedRate = currentFeedRate / 25.4;
+                        var updatePlateHt  = currentPlateHt / 25.4;
+                    
+                        $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
+                    }
+                    else if (tabShow == 'tab2') {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
+                        var updateFeedRate = currentFeedRate / 25.4;
+                        var updatePlateHt  = currentPlateHt / 25.4;
+                    
+                        $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
+                    }
+                    else {
+                        var currentFeedRate = $('#' + this.id + ' .frprobe-run3').val();
+                        var currentPlateHt  = $('#' + this.id + ' .htplate-run3').val();
+                        var currentZclear   = $('#' + this.id + ' .zclear-run3' ).val();
+                        var updateFeedRate = currentFeedRate / 25.4;
+                        var updatePlateHt  = currentPlateHt / 25.4;
+                        var updateZclear   = currentZclear / 25.4;
+                    
+                        $('#' + this.id + ' .frprobe-run3').val(this.updateFeedRate);
+                        $('#' + this.id + ' .htplate-run3').val(this.updatePlateHt);
+                        $('#' + this.id + ' .zclear-run3').val(this.updateZclear);
+                    }
                 }
 
                 this.currentUnits = units;
@@ -750,19 +778,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 this.hideBody();
             }
             
-            // Setup Text Boxes (16.02.28)
-            // Text boxes on Tab 1
-            $('#' + this.id + ' .frprobe-run1').val(this.options.frprobe);
-            $('#' + this.id + ' .htplate-run1').val(this.options.htplate);
-            // Text boxes on Tab 2
-            $('#' + this.id + ' .frprobe-run2').val(this.options.frprobe);
-            $('#' + this.id + ' .htplate-run2').val(this.options.htplate);
-            // Text boxes on Tab 3
-            $('#' + this.id + ' .frprobe-run3').val(this.options.frprobe);
-            $('#' + this.id + ' .htplate-run3').val(this.options.htplate);
-            $('#' + this.id + ' .zclear-run3' ).val(this.options.zclear);
-            
-            /*
             //setup text boxes	
             if (tabShow == "tab1") {
                 console.log("checking tab1:", tabShow);
@@ -780,7 +795,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .htplate-run3').val(this.options.htplate);
                 $('#' + this.id + ' .zclear-run3').val(this.options.zclear);
             }
-            */
             
             // attach onchange	
             $('#' + this.id + ' input').change(this.saveOptionsLocalStorage.bind(this));
