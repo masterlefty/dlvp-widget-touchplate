@@ -926,7 +926,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     </div>
                 </div>
             </div> 
-            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3a</span>
+            <span class="panel-title" data-toggle="popover">dlvp Widget Touchplate</span> <span style="font-size:9px;" class="fb-build">beta-v3</span>
         </div>
         <div class="panel-body">
             <!-- Nav tabs -->
@@ -947,7 +947,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <p>Runs from the current location. 
+                                    <p><i>This is the classic Chilipeppr Touchplate</i>
+                                    <br>Runs from the current location. 
                                     <br>Sets Z-zero for MCS (G53)</p>
                                     <ul style="padding-left: 20px">
                                         <li>Position touch probe</li>
@@ -1026,7 +1027,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                         <tbody>
                             <tr>
                                 <td class = "td-1L">
-                                    <p>Runs from the fixed location via G30. Use G30 tab to define.
+                                    <p>Runs from the fixed location via G30. 
+                                    <br>Use G30 tab to define.
                                     <br>Sets Z-zero for current WCS.</p>
                                     <ul style="padding-left: 20px">
                                         <li>Click "<span class = "tplate-notes">G5x</span> Run" to set WCS Z-zero</li>
@@ -1082,8 +1084,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                 <td class = "td-1R">
                                     <p><button type="button" id="run6" class="btn xbtn-xs btn-primary btn-tplaterun6" style="width:100%;">Define G30</button></p>
                                     <p><b>Note:</b> G30 must be defined and run under the Machine base units [mm]</p>
-                                    <p>G30 must be defined on each startup via either the 'G30 tab', 
-                                       a macro, or G-code addition.</p>
+                                    <p>The G30 location has to be defined on startup via either this tab, 
+                                       a macro, or through an addition to your G-code.</p>
                                 </td>
                             </tr>
                         </tbody>
