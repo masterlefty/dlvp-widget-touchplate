@@ -682,7 +682,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 };
             }
             
-            tabShow = 'tab2';
+            //tabShow = 'tab2';
              $('a[role="tab"]').on('shown.bs.tab', function(e) {
                  tabShow = e.target.id;
                  console.log("The active tab is: ", tabShow);
