@@ -711,14 +711,17 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             //setup text boxes	
             if (tabShow == "tab1") {
+                console.log("checking tab1:", tabShow);
                 $('#' + this.id + ' .frprobe-run1').val(this.options.frprobe);
                 $('#' + this.id + ' .htplate-run1').val(this.options.htplate);
             }
             else if (tabShow == "tab2") {
+                console.log("checking tab2:", tabShow);
                 $('#' + this.id + ' .frprobe-run2').val(this.options.frprobe);
                 $('#' + this.id + ' .htplate-run2').val(this.options.htplate);
             }
             else {
+                console.log("checking tab3:", tabShow);
                 $('#' + this.id + ' .frprobe-run3').val(this.options.frprobe);
                 $('#' + this.id + ' .htplate-run3').val(this.options.htplate);
                 $('#' + this.id + ' .zclear-run3').val(this.options.zclear);
@@ -742,17 +745,20 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // retrieve input vals
             //this.options.frprobe = $('.frprobe').val(); works on tab1
             if (tabShow == "tab1") {
+                console.log("saving tab1:", tabShow);
                 this.options.frprobe = $('#' + this.id + ' .frprobe-run1').val();
                 this.options.htplate = $('#' + this.id + ' .htplate-run1').val();
             }
             else if (tabShow == "tab2") {
+                console.log("saving tab2:", tabShow);
                 this.options.frprobe = $('#' + this.id + ' .frprobe-run2').val();
                 this.options.htplate = $('#' + this.id + ' .htplate-run2').val();
             }
             else {
-            this.options.frprobe = $('#' + this.id + ' .frprobe-run3').val();
-            this.options.htplate = $('#' + this.id + ' .htplate-run3').val();
-            this.options.zclear = $('#' + this.id + ' .zclear-run3').val();
+                console.log("saving tab3:", tabShow);
+                this.options.frprobe = $('#' + this.id + ' .frprobe-run3').val();
+                this.options.htplate = $('#' + this.id + ' .htplate-run3').val();
+                this.options.zclear = $('#' + this.id + ' .zclear-run3').val();
             }
             
             this.options.tabShowing = tabShow;
