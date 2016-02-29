@@ -326,76 +326,6 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('.tplt-dim').text(units);
                 $('.tplt-dimv').text(units + "/min");
                 
-                // New (added 16.02.28) - convert input value to align with units
-                // cannot utilize runCode to define, Run Button has not been selected 
-                // ex. var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
-                // Instead must utilize tab# to update each of the various input conditions
-                /*
-                if(this.currentUnits == "mm") {
-                    if (tabShow == "tab1") {
-                        var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
-                        var currentPlateHt  = $('#' + this.id + ' .htplate-run1').val();
-                        var updateFeedRate = currentFeedRate * 25.4;
-                        var updatePlateHt  = currentPlateHt * 25.4;
-                    
-                        $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
-                        $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
-                    }
-                    else if (tabShow == 'tab2') {
-                        var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
-                        var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
-                        var updateFeedRate = currentFeedRate * 25.4;
-                        var updatePlateHt  = currentPlateHt * 25.4;
-                    
-                        $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
-                        $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
-                    }
-                    else {
-                        var currentFeedRate = $('#' + this.id + ' .frprobe-run4').val();
-                        var currentPlateHt  = $('#' + this.id + ' .htplate-run4').val();
-                        var currentZclear   = $('#' + this.id + ' .zclear-run4' ).val();
-                        var updateFeedRate = currentFeedRate * 25.4;
-                        var updatePlateHt  = currentPlateHt * 25.4;
-                        var updateZclear   = currentZclear * 25.4;
-                    
-                        $('#' + this.id + ' .frprobe-run4').val(this.updateFeedRate);
-                        $('#' + this.id + ' .htplate-run4').val(this.updatePlateHt);
-                        $('#' + this.id + ' .zclear-run4').val(this.updateZclear);
-                    }
-                }
-                else {
-                    if (tabShow == "tab1") {
-                        var currentFeedRate = $('#' + this.id + ' .frprobe-run1').val();
-                        var currentPlateHt  = $('#' + this.id + ' .htplate-run1').val();
-                        var updateFeedRate = currentFeedRate / 25.4;
-                        var updatePlateHt  = currentPlateHt / 25.4;
-                    
-                        $('#' + this.id + ' .frprobe-run1').val(this.updateFeedRate);
-                        $('#' + this.id + ' .htplate-run1').val(this.updatePlateHt);
-                    }
-                    else if (tabShow == 'tab2') {
-                        var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
-                        var currentPlateHt  = $('#' + this.id + ' .htplate-run2').val();
-                        var updateFeedRate = currentFeedRate / 25.4;
-                        var updatePlateHt  = currentPlateHt / 25.4;
-                    
-                        $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
-                        $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
-                    }
-                    else {
-                        var currentFeedRate = $('#' + this.id + ' .frprobe-run4').val();
-                        var currentPlateHt  = $('#' + this.id + ' .htplate-run4').val();
-                        var currentZclear   = $('#' + this.id + ' .zclear-run4' ).val();
-                        var updateFeedRate = currentFeedRate / 25.4;
-                        var updatePlateHt  = currentPlateHt / 25.4;
-                        var updateZclear   = currentZclear / 25.4;
-                    
-                        $('#' + this.id + ' .frprobe-run4').val(this.updateFeedRate);
-                        $('#' + this.id + ' .htplate-run4').val(this.updatePlateHt);
-                        $('#' + this.id + ' .zclear-run4').val(this.updateZclear);
-                    }
-                }
-                */
                 this.currentUnits = units;
             }
             // Store record of current unit defined in G-code file, unsubscribe
@@ -729,8 +659,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             else {
                 // Sets the G92 offset to the WCS (g5x) coordinate system
-                // for use with a fixed touchplate
-                // for buttons 3 or 5, found on Tab 2 or 3
+                // Button 3 on Tab 2 is for use with a floating touchplate
+                // Button 5 on Tab 3 is for use with a fixed touchplate
                 $('#' + this.id + ' .btn-tplate' + transferCode).removeClass("btn-danger").text("G92 Run");
                 
                  // Set the G5x offset via temporary offset G92
@@ -741,7 +671,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             
             // Back tool off of touch plate, runs under relative coordinate move
             // Need to check units, inch or mm
-                // backoff in inches was changed from 0.1 to 0.2 due to controller 
+                // (16.02.28) backoff in inches was changed from 0.1 to 0.2 due to controller 
                 // skipping execution during testing and development
             if (gcodeUnit == "G20 (inch)") {
                 var gcode = "G91 G0 Z 0.20 (backoff 0.2 inch)\n";
