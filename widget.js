@@ -392,7 +392,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     this.isRunning = false;
                     
                 } else {
-                    // Run G92 (MCS) button
+                    // Run G92 (MCS) button - changes buttons run3 and run5
                     $('#' + this.id + ' .btn-tplate' + runCode).removeClass("btn-danger").text("G92 Run");
                     this.isRunning = false;
                 }
@@ -407,7 +407,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 // Get user feedrate from input group
                 var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
-                var zclr = $('.zclear-run3').val();
+                // var zclr = $('.zclear-run3').val();
+                var zclr = $('#' + this.id + ' .zclear-run3').val();
                 
                 console.log("run code is:", runCode);
                 
@@ -422,6 +423,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                  * and present them back to WCS coordinates.  Break the Z move into a
                  * separate step
                  */
+                
+                // move to defined G30 location
                 if (runCode == "run4" || runCode == "run5") {
                     console.log("runcode 4 was triggered", runCode);
                     // Raise head to clearance height
