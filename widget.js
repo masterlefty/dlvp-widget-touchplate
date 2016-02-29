@@ -406,9 +406,27 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
+                // run1, run2, and run 4 run direct from runCode
+                // run3 runs from feedrate on run2
+                // run5 runs from feedrate on run4
+                if (runCode == 'run3') {
+                    var fr = $('#' + this.id + ' .frprobe-run2').val();
+                }
+                else if (runCode == 'run5') {
+                    var fr = $('#' + this.id + ' .frprobe-run4').val();
+                }
+                else {
+                    var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
+                }
+                // Get user zclearance from tab3 input group
+                var zclr = $('#' + this.id + ' .zclear-run4').val();
+                
+                /*
+                // Get user feedrate from input group
                 var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
                 // var zclr = $('.zclear-run3').val();
                 var zclr = $('#' + this.id + ' .zclear-run3').val();
+                */
                 
                 console.log("run code is:", runCode);
                 
@@ -575,7 +593,18 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             this.isRunning = false;
             
             // Define Height of Plate (plth) for inclusion into setting Z-zero
-            var plth = $('#' + this.id + ' .htplate-' + transferCode).val();
+            // run1, run2, and run 4 run direct from transferCode
+            // run3 runs from Plate Height on run2
+            // run5 runs from Plate Height on run4
+            if (transferCode == 'run3') {
+                var plth = $('#' + this.id + ' .htplate-run2').val();
+            }
+            else if (transferCode == 'run5') {
+                var plth = $('#' + this.id + ' .htplate-run4').val();
+            }
+            else {
+                var plth = $('#' + this.id + ' .htplate-' + transferCode).val();
+            }
             if (isNaN(plth)) plth = 0;
 
             console.log("heightPlate:", plth);
@@ -795,9 +824,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             else {
                 console.log("checking tab3:", tabShow);
-                $('#' + this.id + ' .frprobe-run3').val(this.options.frprobe);
-                $('#' + this.id + ' .htplate-run3').val(this.options.htplate);
-                $('#' + this.id + ' .zclear-run3').val(this.options.zclear);
+                $('#' + this.id + ' .frprobe-run4').val(this.options.frprobe);
+                $('#' + this.id + ' .htplate-run4').val(this.options.htplate);
+                $('#' + this.id + ' .zclear-run4').val(this.options.zclear);
             }
             
             // attach onchange	
@@ -827,9 +856,9 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             }
             else {
                 console.log("saving tab3:", tabShow);
-                this.options.frprobe = $('#' + this.id + ' .frprobe-run3').val();
-                this.options.htplate = $('#' + this.id + ' .htplate-run3').val();
-                this.options.zclear = $('#' + this.id + ' .zclear-run3').val();
+                this.options.frprobe = $('#' + this.id + ' .frprobe-run4').val();
+                this.options.htplate = $('#' + this.id + ' .htplate-run4').val();
+                this.options.zclear  = $('#' + this.id + ' .zclear-run4' ).val();
             }
 
             this.options.tabShowing = tabShow;
