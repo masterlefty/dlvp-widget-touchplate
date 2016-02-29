@@ -263,6 +263,25 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // cannot utilize runCode to define, Run Button has not been selected 
                 // ex. var currentFeedRate = $('#' + this.id + ' .frprobe-' + transferCode).val();
                 // Instead must utilize tab# to update each of the various input conditions
+                if(this.currentUnits == 'mm') {
+                    var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
+                    var currentPlateHt = $('#' + this.id + ' .htplate-run2').val();
+                    var updateFeedRate = currentFeedRate * 25.4;
+                    var updatePlateHt = currentPlateHt * 25.4;
+                    $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
+                    $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
+                }
+                else {
+                    var currentFeedRate = $('#' + this.id + ' .frprobe-run2').val();
+                    var currentPlateHt = $('#' + this.id + ' .htplate-run2').val();
+                    var updateFeedRate = currentFeedRate / 25.4;
+                    var updatePlateHt = currentPlateHt / 25.4;
+                    $('#' + this.id + ' .frprobe-run2').val(this.updateFeedRate);
+                    $('#' + this.id + ' .htplate-run2').val(this.updatePlateHt);
+                }
+                
+                
+                
                 /*
                 if(this.currentUnits == "mm") {
                     if (tabShow == "tab1") {
@@ -517,7 +536,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 
                 // Send command to set the G30 location
                 var id = "tp" + this.gcodeCtr++;
-                var gcode = "G90 G21 G30.1 \n";
+                var gcode = "G92.1 G90 G21 G30.1 \n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
                 var id = "tp" + this.gcodeCtr++;
