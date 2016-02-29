@@ -352,6 +352,8 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
             // when user clicks the run button
             console.log("user clicked run button. evt:", evt, event.target.id);
             
+            // Unsubscribe to coordinates and units so widget can recall settings
+            // defined at start of program
             // Stop tracking coordinates
             chilipeppr.unsubscribe('/com-chilipeppr-interface-cnccontroller/coords',this, this.onCoordsUpdate);
             // Stop tracking units
@@ -403,27 +405,17 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 $('#' + this.id + ' .btn-tplate' + runCode).addClass("btn-danger").text("Stop");
                 
                 // Get user feedrate from input group
-                // run1, run2, and run 4 run direct from runCode
-                // run3 runs from feedrate on run2
-                // run5 runs from feedrate on run4
-                if (runCode == 'run3') {
+                if (runCode == 'run3') { // run3 runs from feedrate on run2
                     var fr = $('#' + this.id + ' .frprobe-run2').val();
                 }
-                else if (runCode == 'run5') {
+                else if (runCode == 'run5') { // run5 runs from feedrate on run4
                     var fr = $('#' + this.id + ' .frprobe-run4').val();
                 }
-                else {
+                else { // run1, run2, and run 4 run direct from runCode
                     var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
                 }
                 // Get user zclearance from tab3 input group
                 var zclr = $('#' + this.id + ' .zclear-run4').val();
-                
-                /*
-                // Get user feedrate from input group
-                var fr = $('#' + this.id + ' .frprobe-' + runCode).val();
-                // var zclr = $('.zclear-run3').val();
-                var zclr = $('#' + this.id + ' .zclear-run3').val();
-                */
                 
                 console.log("run code is:", runCode);
                 
@@ -433,15 +425,15 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 // G30 Probe cycle runs an additional routine to move the head
                 // to the fixed probe position befor running the probe cycle
                 /**
-                 * Note: testing has shown that the g91 throughs a bug into the coordinates
-                 * it will add the current mpo position to the G30.1 saved coordinates
-                 * and present them back to WCS coordinates.  Break the Z move into a
-                 * separate step
+                 * Note: testing has shown that the g91 throws a bug into 
+                 * the coordinates it will add the current mpo position to the 
+                 * G30.1 saved coordinates and present them back to WCS 
+                 * coordinates. Break the Z-clearance move into a separate step
                  */
                 
                 // move to defined G30 location
                 if (runCode == "run4" || runCode == "run5") {
-                    console.log("runcode 4 was triggered", runCode);
+                    console.log("G30 runCode was triggered by:", runCode);
                     // Raise head to clearance height
                     var id = "tp" + this.gcodeCtr++;
                     var gcode = "G91 G0 Z" + zclr + "\n";
@@ -451,7 +443,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                     var gcode = "G90 G21 G30 \n";
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                     
-                    // Check to see if initial units were inch
+                    // If initial units were inch, return to G20 mode
                     if (gcodeUnit == "G20 (inch)") {
                         var id = "tp" + this.gcodeCtr++;
                         var gcode = "G20 \n";
@@ -517,6 +509,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                 var gcode = "G92.1 G90 G21 G30.1 \n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
                 
+                // Set Units as stored in global definition gcodeUnit
                 var id = "tp" + this.gcodeCtr++;
                 var gcode = gcodeUnit + "\n";
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", {Id: id, D: gcode});
@@ -996,8 +989,7 @@ cpdefine("inline:com-chilipeppr-dlvp-widget-touchplate", ["chilipeppr_ready", /*
                                         <li>Click "Run" to set G53 Z-zero</li>
                                         <li><b>Exercise caution:</b><i> 
                                             This routine resets the Machine's 
-                                            base coordinate system (G53) to 
-                                            <br>Z-min.</i>
+                                            base coordinate system (G53) Z-0 to Z-min.</i>
                                         </li>
                                     </ul>
                                 </td>
